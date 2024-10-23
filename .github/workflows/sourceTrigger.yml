@@ -22,7 +22,7 @@ jobs:
           
       - name: Another step that can handle the result
          
-        if: ${{ steps.trigger-step.outputs.workflow-conclusion }} == "success"
+        if: ${{ steps.trigger-step.outputs.workflow-conclusion }} == "success11"
         run: |
             
             echo "Another Workflow conclusion: ${{ steps.trigger-step.outputs.workflow-conclusion }}"
