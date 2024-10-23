@@ -37,31 +37,18 @@ jobs:
           -H 'Accept: application/vnd.github.everest-preview+json' \
           -u ${{ secrets.ACTIONS_KEY }} \
           --data '{"event_type": "Trigger Workflow", "client_payload": { "repository": "'${{ github.event.inputs.workflow_02 }}'" }}'
-         
-          
-          
-      - uses: actions/checkout@v3
       
-      - name: Wait for workflow completion
-
+      - name: Sleep for 30 seconds
         run: |
-         
-          while true; do
+            echo "Wait until 30s"
+            sleep 30s
+      - name: Continue after 30 seconds
+        run: |
+              echo "Completed after 30s"
+               
+          
+       
 
-            response=$(curl -H "Authorization: Bearer ${{ secrets.ACTIONS_KEY }}" \
+            
 
-            "https://api.github.com/repos/annamalaiponnusamy/repo_02/actions/runs/languages")
-
-            conclusion=$(jq '.conclusion' <<< $response)
-
-            if [ "$conclusion" == "success" ]; then 
-
-              echo "Called workflow completed successfully."
-
-              break
-
-            fi
-
-            sleep 10
-
-          done
+           
