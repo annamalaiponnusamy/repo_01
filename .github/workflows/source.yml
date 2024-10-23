@@ -20,12 +20,11 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-
+    env:
+      First_Name: Annamalai
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - name: Test
-        env:
-          First_Name: Annamalai
+      - name: Test        
         run: |
           echo "Value of Env: $First_Name"
           echo "My Github repo is called ${{ github.repository }}"
