@@ -30,7 +30,7 @@ jobs:
         run: |
           echo "$test" ${{ vars.IC_ASPF_WINSIPS }}
           echo $test
-          echo "Formatted string: ${{ format('{0}', '$test') }}"
+          echo "Formatted string: ${{ format($test) }}"
           
       - name: Test         
         run: |
