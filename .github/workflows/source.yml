@@ -24,13 +24,12 @@ jobs:
     
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - name: Set repository variable
-        run: |
-          echo "REPO_NAME=${{ vars.IC_ASPF_WINSIPS }}" >> $GITHUB_ENV
+       
 
       - name: Use format function
         run: |
-          echo "Formatted string: ${{ format('{0}', '${{ vars.IC_ASPF_WINSIPS }}') }}"
+          echo "$test" ${{ vars.IC_ASPF_WINSIPS }}
+          echo "Formatted string: ${{ format('{0}', $test) }}"
           
       - name: Test         
         run: |
