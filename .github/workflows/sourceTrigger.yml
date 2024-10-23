@@ -1,5 +1,8 @@
 name: workflow_caller
-on: [repository_dispatch]
+
+on: 
+    workflow_dispatch:
+ 
 jobs:
   cypress-run:
     runs-on: ubuntu-latest
