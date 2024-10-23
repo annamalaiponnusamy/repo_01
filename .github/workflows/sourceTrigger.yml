@@ -15,13 +15,14 @@ jobs:
           repo: annamalaiponnusamy/repo_02
           token: ${{ secrets.ACTIONS_KEY  }}
           workflow-logs: json-output
-          wait-for-completion-timeout: 5m
-          wait-for-completion-interval: 30s
-          display-workflow-run-url-interval: 30s
-          display-workflow-run-url-timeout: 5m
+          wait-for-completion-timeout: 2m
+          wait-for-completion-interval: 10s
+          display-workflow-run-url-interval: 10s
+          display-workflow-run-url-timeout: 2m
           
       - name: Another step that can handle the result
         if: always()
         run: |
+            echo "Another Workflow conclusion: ${{ steps.trigger-step.outputs.response }}"
             echo "Another Workflow conclusion: ${{ steps.trigger-step.outputs.workflow-conclusion }}"
             echo '${{ fromJSON(steps.trigger-step.outputs.workflow-logs).my-remote-job }}'
