@@ -4,7 +4,7 @@ on:
     workflow_dispatch:
  
 jobs:
-  cypress-run:
+  cypressrun:
     runs-on: ubuntu-latest
     steps:
       - name: Invoke workflow and scrap output
@@ -20,7 +20,8 @@ jobs:
           display-workflow-run-url-interval: 10s
           display-workflow-run-url-timeout: 2m
   cypress-run2:
-        if: github.repository != 'octo-org/octo-repo-prod'
+        needs:  cypressrun
+        if: ${{ steps.trigger-step.outputs.workflow-conclusion }} == 'success'
         runs-on: ubuntu-latest 
         steps: 
         - name: Another step that can handle the result
