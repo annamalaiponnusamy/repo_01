@@ -5,7 +5,7 @@ on:
       workflow_02:
         description: 'ًWorkflow 2 which will be triggered'
         required: true
-        
+        default: 'annamalaiponnusamy'
 
       workflow2_github_account:
         description: 'GitHub Account Owner'
@@ -45,12 +45,12 @@ jobs:
       - name: Wait for workflow completion
 
         run: |
-
+          echo "${{workflow_run_id}}
           while true; do
 
             response=$(curl -H "Authorization: Bearer ${{ secrets.ACTIONS_KEY }}" \
 
-            "https://api.github.com/repos/annamalaiponnusamy/repo_02/actions/runs/$workflow_run_id")
+            "https://api.github.com/repos/annamalaiponnusamy/repo_02/actions/runs/languages")
 
             conclusion=$(jq '.conclusion' <<< $response)
 
