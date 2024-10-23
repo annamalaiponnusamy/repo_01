@@ -17,4 +17,6 @@ jobs:
           workflow-logs: json-output
       - name: Another step that can handle the result
         if: always()
-        run: echo '${{ fromJSON(steps.trigger-step.outputs.workflow-logs).my-remote-job }}'
+        run: |
+            echo "Another Workflow conclusion: ${{ steps.trigger-step.outputs.workflow-conclusion }}"
+            echo '${{ fromJSON(steps.trigger-step.outputs.workflow-logs).my-remote-job }}'
