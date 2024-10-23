@@ -21,7 +21,8 @@ jobs:
           display-workflow-run-url-timeout: 2m
           
       - name: Another step that can handle the result
-        if: always()
+         
+        if: contains('${{ fromJSON(steps.trigger-step.outputs.workflow-logs) }}', 'winsip3upsuccess')
         run: |
             
             echo "Another Workflow conclusion: ${{ steps.trigger-step.outputs.workflow-conclusion }}"
