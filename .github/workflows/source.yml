@@ -38,14 +38,14 @@ jobs:
           -u ${{ secrets.ACTIONS_KEY }} \
           --data '{"event_type": "Trigger Workflow", "client_payload": { "repository": "'${{ github.event.inputs.workflow_02 }}'" }}'
          
-          workflow_run_id=$(jq '.id' <<< $RESPONSE)
+          
           
       - uses: actions/checkout@v3
       
       - name: Wait for workflow completion
 
         run: |
-          echo "${{workflow_run_id}}
+         
           while true; do
 
             response=$(curl -H "Authorization: Bearer ${{ secrets.ACTIONS_KEY }}" \
