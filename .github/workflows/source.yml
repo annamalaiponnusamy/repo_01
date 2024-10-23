@@ -25,14 +25,11 @@ jobs:
         configuration: [IC_ASPF_WINSIPS]
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-       
         
       - name: Test         
         run: |
           echo '${{ vars[format(matrix.configuration)] }}' > variable.json
-          
           echo "Value of inputs.workflow_02:  ${{ inputs.workflow_02 }}"
-         
           echo "My Github repo is called ${{ github.repository }}"
           echo "Value of ACTIONS_KEY: ${{ secrets.ACTIONS_KEY }}"
           echo "Value of IC_ASPF_WINSIPS: ${{ vars.IC_ASPF_WINSIPS }}"
@@ -40,4 +37,31 @@ jobs:
           -H 'Accept: application/vnd.github.everest-preview+json' \
           -u ${{ secrets.ACTIONS_KEY }} \
           --data '{"event_type": "Trigger Workflow", "client_payload": { "repository": "'${{ github.event.inputs.workflow_02 }}'" }}'
+         
+          workflow_run_id=$(jq '.id' <<< $RESPONSE)
+          
       - uses: actions/checkout@v3
+      
+      - name: Wait for workflow completion
+
+        run: |
+
+          while true; do
+
+            response=$(curl -H "Authorization: Bearer ${{ secrets.ACTIONS_KEY }}" \
+
+            "https://api.github.com/repos/annamalaiponnusamy/repo_02/actions/runs/$workflow_run_id")
+
+            conclusion=$(jq '.conclusion' <<< $response)
+
+            if [ "$conclusion" == "success" ]; then 
+
+              echo "Called workflow completed successfully."
+
+              break
+
+            fi
+
+            sleep 10
+
+          done
