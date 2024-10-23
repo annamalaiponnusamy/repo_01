@@ -22,7 +22,7 @@ jobs:
           
       - name: Another step that can handle the result
          
-        if: contains('${{ steps.trigger-step.outputs.workflow-logs }}', 'winsip3upsuccess-aann')
+        if: ${{ steps.trigger-step.outputs.workflow-conclusion }} == "success"
         run: |
             
             echo "Another Workflow conclusion: ${{ steps.trigger-step.outputs.workflow-conclusion }}"
