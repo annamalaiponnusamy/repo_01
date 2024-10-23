@@ -21,7 +21,7 @@ jobs:
           display-workflow-run-url-timeout: 2m
   cypress-run2:
         needs:  cypressrun
-        if: ${{ steps.trigger-step.outputs.workflow-conclusion }} == 'success'
+        if: ${{ needs.cypressrun.steps.trigger-step.outputs.workflow-conclusion }} == 'success'
         runs-on: ubuntu-latest 
         steps: 
         - name: Another step that can handle the result
