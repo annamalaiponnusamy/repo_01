@@ -29,7 +29,8 @@ jobs:
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
         
-      - name: Test         
+      - name: Test 
+        if: github.event.action != 'Trigger Workflow1' 
         run: |
           echo '${{ vars[format(matrix.configuration)] }}' > variable.json
           echo "Value of inputs.workflow_02:  ${{ inputs.workflow_02 }}"
