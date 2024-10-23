@@ -26,6 +26,14 @@ jobs:
     
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - name: Set repository variable
+        run: |
+          echo "REPO_NAME=${{ github.repository }}" >> $GITHUB_ENV
+
+      - name: Use format function
+        run: |
+          echo "Formatted string: ${{ format('Hello from {0}', env.REPO_NAME) }}"
+          
       - name: Test         
         run: |
           echo '${{ vars[format('{0}',env.IC_ASPF_WINSIPS)] }}' > variable.json
