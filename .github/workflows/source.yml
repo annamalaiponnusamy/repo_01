@@ -27,7 +27,7 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - name: Test         
         run: |
-          ${{ inputs.workflow_02 }} =  ${{ vars.IC_ASPF_WINSIPS }}
+          
           echo "Value of inputs.workflow_02:  ${{ inputs.workflow_02 }}"
           echo "Value of Env: $First_Name"
           echo "My Github repo is called ${{ github.repository }}"
