@@ -5,7 +5,7 @@ on:
       workflow_02:
         description: 'ًWorkflow 2 which will be triggered'
         required: true
-        default: ${{ vars.IC_ASPF_WINSIPS }}
+        
 
       workflow2_github_account:
         description: 'GitHub Account Owner'
@@ -22,10 +22,12 @@ jobs:
     runs-on: ubuntu-latest
     env:
       First_Name: Annamalai
+    
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - name: Test        
+      - name: Test         
         run: |
+          ${{ inputs.workflow_02 }} =  ${{ vars.IC_ASPF_WINSIPS }}
           echo "Value of inputs.workflow_02:  ${{ inputs.workflow_02 }}"
           echo "Value of Env: $First_Name"
           echo "My Github repo is called ${{ github.repository }}"
