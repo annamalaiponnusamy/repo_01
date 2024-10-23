@@ -25,6 +25,8 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - name: Test
         run: |
+          echo "Value of ACTIONS_KEY: ${{ secrets.ACTIONS_KEY }}"
+          echo "Value of my_variable: ${{ secrets.IC_ASPF_WINSIPS }}"
           curl -X POST https://api.github.com/repos/annamalaiponnusamy/repo_02/dispatches \
           -H 'Accept: application/vnd.github.everest-preview+json' \
           -u ${{ secrets.ACTIONS_KEY }} \
