@@ -9,7 +9,7 @@ jobs:
         uses: the-actions-org/workflow-dispatch@v4
         with:
           workflow: Another Workflow
-          repo: annamalaiponnusamy/repo_01
+          repo: annamalaiponnusamy/repo_02
           token: ${{ secrets.ACTIONS_KEY  }}
           workflow-logs: json-output
       - name: Another step that can handle the result
