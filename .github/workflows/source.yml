@@ -48,12 +48,13 @@ jobs:
       - name: Continue after 30 seconds
         run: |
               echo "Completed after 30s"
-              while [ github.event.action == 'Trigger Workflow1' ]
-              do
-               sleep 10s
-                echo "Completed after 10s"
+              while true; do           
+              if [github.event.action == 'Trigger Workflow1']; then 
+              echo "Called workflow completed successfully."
+              break
+              fi
+              sleep 10
               done
-               
           
        
 
