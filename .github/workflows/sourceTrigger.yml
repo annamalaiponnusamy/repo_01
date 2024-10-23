@@ -19,12 +19,12 @@ jobs:
           wait-for-completion-interval: 10s
           display-workflow-run-url-interval: 10s
           display-workflow-run-url-timeout: 2m
-          
-      - name: Another step that can handle the result
-         
-        if: ${{ steps.trigger-step.outputs.workflow-conclusion }} == "success11"
-        run: |
-            
+  cypress-run2:
+        if: github.repository == 'octo-org/octo-repo-prod'
+        runs-on: ubuntu-latest 
+        steps: 
+        - name: Another step that can handle the result
+          run: |
             echo "Another Workflow conclusion: ${{ steps.trigger-step.outputs.workflow-conclusion }}"
             echo '${{ steps.trigger-step.outputs.workflow-logs }}'
             
