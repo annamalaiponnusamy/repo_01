@@ -33,7 +33,10 @@ jobs:
       - name: Conclussion step that can handle the result
         id: conclusionstep        
         run:  echo "conclusion=${{ steps.triggerstep.outputs.workflow-conclusion }}" >> $GITHUB_OUTPUT
-           
+      - name: Conclussion step that can handle the result
+        id: conclusionstep2    
+        run: echo "Result from dispatched workflow = ${{ steps.triggerstep.outputs.logoutput }}"   
+        
   cypress-run2:
         runs-on: ubuntu-latest 
         needs:  cypressrun
