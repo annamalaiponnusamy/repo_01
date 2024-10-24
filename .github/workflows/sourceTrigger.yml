@@ -23,11 +23,11 @@ jobs:
           display-workflow-run-url-interval: 10s
           display-workflow-run-url-timeout: 2m 
       - name: Another step that can handle the result
-        if: always()
-        run: |
-            
-            echo "log=${{ steps.triggerstep.outputs.workflow-conclusion }}" >> $GITHUB_OUTPUT
-            echo "conclusion=${{ steps.triggerstep.outputs.workflow-conclusion }}" >> $GITHUB_OUTPUT
+      - id: step1
+        run:  echo "log=${{ steps.triggerstep.outputs.workflow-conclusion }}" >> $GITHUB_OUTPUT
+      - id: step2
+        run: echo "conclusion=${{ steps.triggerstep.outputs.workflow-conclusion }}" >> $GITHUB_OUTPUT
+           
             
   cypress-run2:
         needs:  cypressrun
@@ -37,6 +37,6 @@ jobs:
         - name: Another step that can handle the result
           run: |
             echo ${{needs.cypressrun.outputs.conclusionoutput}}  
-            echo ${{needs.cypressrun.outputs.logoutput}}
+             
          
   
