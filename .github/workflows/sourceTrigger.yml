@@ -7,8 +7,8 @@ jobs:
   cypressrun:
     runs-on: ubuntu-latest
     outputs:
-      output1: ${{ steps.triggerstep.outputs.count }}
-      output2: ${{ steps.triggerstep.outputs.count1 }}
+      log: ${{ steps.triggerstep.outputs.log }}
+      conclusion: ${{ steps.triggerstep.outputs.conclusion }}
     steps:
       - name: Invoke workflow and scrap output
         id: triggerstep
@@ -26,17 +26,20 @@ jobs:
         if: always()
         run: |
             echo "Another Workflow conclusion: ${{ steps.triggerstep.outputs.workflow-conclusion }}"
-            echo "count=${{ steps.triggerstep.outputs.workflow-logs }}" >> $GITHUB_OUTPUT
-            echo "count1=${{ steps.triggerstep.outputs.workflow-conclusion }}" >> $GITHUB_OUTPUT
+            echo "log=${{ steps.triggerstep.outputs.workflow-logs }}" >> $GITHUB_OUTPUT
+            echo "conclusion=${{ steps.triggerstep.outputs.workflow-conclusion }}" >> $GITHUB_OUTPUT
             
   cypress-run2:
         needs:  cypressrun
-        if: ${{ needs.cypressrun.outputs.output1 }} == '11success'
+        if: ${{ needs.cypressrun.outputs.conclusion }} == 'success'
         runs-on: ubuntu-latest 
         steps: 
         - name: Another step that can handle the result
           run: |
-            echo ${{needs.cypressrun.outputs.output1}}  
-            echo ${{needs.cypressrun.outputs.output2}}
-             
+            echo ${{needs.cypressrun.outputs.conclusion}}  
+            echo ${{needs.cypressrun.outputs.log}}
+          if: contains(needs.cypressrun.outputs.log, 'winsip3upsuccess')
+        - name: handle-the-respoinse condition
+          run: |
+             echo "This step runs on success"     
   
