@@ -18,8 +18,10 @@ jobs:
           wait-for-completion-timeout: 2m
           wait-for-completion-interval: 10s
           display-workflow-run-url-interval: 10s
-          display-workflow-run-url-timeout: 2m
-          run: |
+          display-workflow-run-url-timeout: 2m 
+      - name: Another step that can handle the result
+        if: always()
+        run: |
             echo "Another Workflow conclusion: ${{ steps.trigger-step.outputs.workflow-conclusion }}"
             echo '${{ steps.trigger-step.outputs.workflow-logs }}'
   cypress-run2:
