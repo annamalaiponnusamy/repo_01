@@ -28,7 +28,7 @@ jobs:
         run:  echo "log=pass" >> $GITHUB_OUTPUT
       - name: Log step that can handle the result
         id: logstep2
-        if:  ${{ ! contains(${{steps.triggerstep.outputs.workflow-logs}}, 'winsip3upsuccess') }}
+        if: ${{ ! contains(steps.triggerstep.outputs.workflow-logs, 'winsip3upsuccess') }}
         run:  echo "log=fail" >> $GITHUB_OUTPUT
       - name: Conclussion step that can handle the result
         id: conclusionstep        
