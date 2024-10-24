@@ -26,7 +26,7 @@ jobs:
         steps: 
         - name: Another step that can handle the result
           run: |
-            echo "Another Workflow conclusion: ${{ steps.trigger-step.outputs.workflow-conclusion }}"
-            echo '${{ steps.trigger-step.outputs.workflow-logs }}'
+            echo "Another Workflow conclusion: ${{ needs.cypressrun.steps.trigger-step.outputs.workflow-conclusion }}"
+            echo '${{ needs.cypressrun.trigger-step.outputs.workflow-logs }}'
             
              
