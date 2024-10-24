@@ -7,8 +7,8 @@ jobs:
   cypressrun:
     runs-on: ubuntu-latest
     outputs:
-      logoutput: ${{ steps.triggerstep.outputs.log }}
-      conclusionoutput: ${{ steps.triggerstep.outputs.conclusion }}
+      logoutput: ${{ steps.logstep.outputs.log }}
+      conclusionoutput: ${{ steps.conclusionstep.outputs.conclusion }}
     steps:
       - name: Invoke workflow and scrap output
         id: triggerstep
@@ -22,12 +22,13 @@ jobs:
           wait-for-completion-interval: 10s
           display-workflow-run-url-interval: 10s
           display-workflow-run-url-timeout: 2m 
-      - name: Another step that can handle the result
-        if: always()
-        run: |
-            echo "log=${{ steps.triggerstep.outputs.workflow-conclusion }}" >> $GITHUB_OUTPUT
-            echo "conclusion=${{ steps.triggerstep.outputs.workflow-conclusion }}" >> $GITHUB_OUTPUT
-            
+      - name: Log step that can handle the result
+        id: logstep
+        run:  echo "log=${{ steps.triggerstep.outputs.workflow-conclusion }}" >> $GITHUB_OUTPUT
+      - name: Conclussion step that can handle the result
+        id: conclusionstep
+        run:  echo "conclusion=${{ steps.triggerstep.outputs.workflow-conclusion }}" >> $GITHUB_OUTPUT
+           
   cypress-run2:
         needs:  cypressrun
         if: ${{ needs.cypressrun.outputs.conclusionoutput }} == 'success1'
