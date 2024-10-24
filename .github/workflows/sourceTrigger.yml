@@ -24,7 +24,7 @@ jobs:
           display-workflow-run-url-timeout: 2m 
       - name: Log step that can handle the result
         id: logstep
-        run:  echo "log=${{ steps.triggerstep.outputs.workflow-conclusion }}" >> $GITHUB_OUTPUT
+        run:  echo "log=${{ steps.triggerstep.outputs.workflow-logs }}" >> $GITHUB_OUTPUT
       - name: Conclussion step that can handle the result
         id: conclusionstep
         run:  echo "conclusion=${{ steps.triggerstep.outputs.workflow-conclusion }}" >> $GITHUB_OUTPUT
@@ -37,6 +37,7 @@ jobs:
         - name: Another step that can handle the result
           run: |
             echo ${{needs.cypressrun.outputs.conclusionoutput}}  
+            echo ${{needs.cypressrun.outputs.logoutput}}  
              
          
   
