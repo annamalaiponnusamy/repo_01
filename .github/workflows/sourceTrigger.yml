@@ -29,13 +29,13 @@ jobs:
       - name: Log step that can handle the result
         id: logstep2
         if: ${{ ! contains(steps.triggerstep.outputs.workflow-logs, 'winsip3upsuccess') }}
-        run:  echo "log=fail" >> $GITHUB_OUTPUT
+        run:  echo "${{steps.triggerstep.outputs.workflow-logs}}"
       - name: Conclussion step that can handle the result
         id: conclusionstep        
         run:  echo "conclusion=${{ steps.triggerstep.outputs.workflow-conclusion }}" >> $GITHUB_OUTPUT
       - name: Conclussion step that can handle the result
         id: conclusionstep2    
-        run: echo "Result from dispatched workflow = ${{ steps.Another Workflow.outputs.logoutput }}"   
+        run: echo "Result from dispatched workflow = ${{ steps.triggerstep.outputs.logoutput }}"   
         
   cypress-run2:
         runs-on: ubuntu-latest 
