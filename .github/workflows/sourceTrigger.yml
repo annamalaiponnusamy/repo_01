@@ -19,6 +19,9 @@ jobs:
           wait-for-completion-interval: 10s
           display-workflow-run-url-interval: 10s
           display-workflow-run-url-timeout: 2m
+          run: |
+            echo "Another Workflow conclusion: ${{ steps.trigger-step.outputs.workflow-conclusion }}"
+            echo '${{ trigger-step.outputs.workflow-logs }}'
   cypress-run2:
         needs:  cypressrun
         if: ${{ needs.cypressrun.steps.trigger-step.outputs.workflow-conclusion }} == '11success'
