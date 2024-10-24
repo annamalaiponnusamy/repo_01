@@ -18,7 +18,14 @@ jobs:
       run: echo "::set-output name=test::hello"
     - id: step2
       run: echo "::set-output name=test::world"
-
+      
+    - name: Set output
+      id: stepid
+      run: echo "count=5" >> $GITHUB_OUTPUT
+      
+    - name: Use prior output
+      run: echo "The count was ${{ steps.stepid.outputs.count }}"
+      
   job2:
     runs-on: ubuntu-latest
     # Wait from the job1 to be completed before starting job2
