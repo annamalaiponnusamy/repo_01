@@ -23,15 +23,14 @@ jobs:
           display-workflow-run-url-interval: 10s
           display-workflow-run-url-timeout: 2m 
       - name: Another step that can handle the result
-      - id: step1
-        run:  echo "log=${{ steps.triggerstep.outputs.workflow-conclusion }}" >> $GITHUB_OUTPUT
-      - id: step2
-        run: echo "conclusion=${{ steps.triggerstep.outputs.workflow-conclusion }}" >> $GITHUB_OUTPUT
-           
+        if: always()
+        run: |
+            echo "log=${{ steps.triggerstep.outputs.workflow-conclusion }}" >> $GITHUB_OUTPUT
+            echo "conclusion=${{ steps.triggerstep.outputs.workflow-conclusion }}" >> $GITHUB_OUTPUT
             
   cypress-run2:
         needs:  cypressrun
-        if: ${{ needs.cypressrun.outputs.conclusionoutput }} == 'success'
+        if: ${{ needs.cypressrun.outputs.conclusionoutput }} == 'success1'
         runs-on: ubuntu-latest 
         steps: 
         - name: Another step that can handle the result
