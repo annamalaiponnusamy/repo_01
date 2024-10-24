@@ -8,7 +8,7 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       output1: ${{ steps.triggerstep.outputs.count }}
-      output2: ${{ steps.triggerstep.outputs.count }}
+      output2: ${{ steps.triggerstep.outputs.count1 }}
     steps:
       - name: Invoke workflow and scrap output
         id: triggerstep
@@ -26,17 +26,17 @@ jobs:
         if: always()
         run: |
             echo "Another Workflow conclusion: ${{ steps.triggerstep.outputs.workflow-conclusion }}"
-            echo '${{ steps.triggerstep.outputs.workflow-logs }}'
-            echo "count=${{ steps.triggerstep.outputs.workflow-conclusion }}" >> $GITHUB_OUTPUT
+            echo "count=${{ steps.triggerstep.outputs.workflow-logs }}" >> $GITHUB_OUTPUT
+            echo "count1=${{ steps.triggerstep.outputs.workflow-conclusion }}" >> $GITHUB_OUTPUT
             
   cypress-run2:
         needs:  cypressrun
-        if: ${{ needs.cypressrun.steps.trigger-step.outputs.workflow-conclusion }} == '11success'
+        if: ${{ needs.cypressrun.outputs.output1 }} == '11success'
         runs-on: ubuntu-latest 
         steps: 
         - name: Another step that can handle the result
           run: |
-            echo "Another Workflow conclusion: ${{ needs.cypressrun.steps.trigger-step.outputs.workflow-conclusion }}"
-            echo '${{ needs.cypressrun.trigger-step.outputs.workflow-logs }}'
-            echo ${{needs.job1.outputs.output1}} ${{needs.job1.outputs.output2}}
+            echo ${{needs.cypressrun.outputs.output1}}  
+            echo ${{needs.cypressrun.outputs.output2}}
              
+  
