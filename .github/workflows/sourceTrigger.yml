@@ -25,9 +25,9 @@ jobs:
       - name: Another step that can handle the result
         if: always()
         run: |
-            echo "Another Workflow conclusion: ${{ steps.trigger-step.outputs.workflow-conclusion }}"
-            echo '${{ steps.trigger-step.outputs.workflow-logs }}'
-            echo "count=${{ steps.trigger-step.outputs.workflow-conclusion }}" >> $GITHUB_OUTPUT
+            echo "Another Workflow conclusion: ${{ steps.triggerstep.outputs.workflow-conclusion }}"
+            echo '${{ steps.triggerstep.outputs.workflow-logs }}'
+            echo "count=${{ steps.triggerstep.outputs.workflow-conclusion }}" >> $GITHUB_OUTPUT
             
   cypress-run2:
         needs:  cypressrun
