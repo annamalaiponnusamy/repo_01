@@ -26,7 +26,7 @@ jobs:
         if: always()
         run: |
             
-            echo "log=${{ steps.triggerstep.outputs.workflow-logs }}" >> $GITHUB_OUTPUT
+            echo "log=${{ steps.triggerstep.outputs.workflow-conclusion }}" >> $GITHUB_OUTPUT
             echo "conclusion=${{ steps.triggerstep.outputs.workflow-conclusion }}" >> $GITHUB_OUTPUT
             
   cypress-run2:
