@@ -25,6 +25,7 @@ jobs:
       - name: Another step that can handle the result
         if: always()
         run: |
+            
             echo "log=${{ steps.triggerstep.outputs.workflow-logs }}" >> $GITHUB_OUTPUT
             echo "conclusion=${{ steps.triggerstep.outputs.workflow-conclusion }}" >> $GITHUB_OUTPUT
             
@@ -37,8 +38,5 @@ jobs:
           run: |
             echo ${{needs.cypressrun.outputs.conclusionoutput}}  
             echo ${{needs.cypressrun.outputs.logoutput}}
-          if: contains(needs.cypressrun.outputs.logoutput, 'winsip3upsuccess')
-        - name: handle-the-respoinse condition
-          run: |
-             echo "This step runs on success"     
+         
   
