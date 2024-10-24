@@ -21,7 +21,7 @@ jobs:
       
     - name: Set output
       id: stepid
-      run: echo "count=5" >> $GITHUB_OUTPUT
+      run: echo "count=${{ github.repository }}" >> $GITHUB_OUTPUT
       
     - name: Use prior output
       run: echo "The count was ${{ steps.stepid.outputs.count }}"
