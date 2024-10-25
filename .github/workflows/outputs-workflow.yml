@@ -1,8 +1,13 @@
 name: 08 - Outputs Workflow
 
 on:
-  schedule:
-    - cron: "0 6 * * MON-FRI" # Runs at 6:00 UTC
+  workflow_call:
+    inputs:
+      configuration:
+        required: true
+        type: string
+    outputs:
+        jobclusterstatus: ${{ jobs.job1.steps.step1.outputs.test }}
   workflow_dispatch:
 
 jobs:
