@@ -52,7 +52,8 @@ jobs:
           echo '{
             "ip-address": "${{ steps.xyz.outputs.ip-address }}"
           }'
-
+      - name: step-3
+        run: echo "${{ steps.xyz.outputs.ip-address }}"
   job5:
     runs-on: ubuntu-latest
     steps:
