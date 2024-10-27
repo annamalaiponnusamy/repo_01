@@ -26,7 +26,4 @@ jobs:
         run: echo "secondword=world" >> $GITHUB_OUTPUT
       - id: step3
         run: echo "reu output ${{ steps.step1.outputs.firstword }}"
-      - id: step4
-        run: echo "reu output ${{ outputs.output1 }}"
-      - id: step5
-        run: echo "reu output ${{ outputs.firstword }}"
+      
