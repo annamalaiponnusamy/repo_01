@@ -23,7 +23,7 @@ jobs:
       - id: step1
         run: echo "firstword=hello" >> $GITHUB_ENV
       - id: step2
-        run: ::set-env name=firstword2 value=hello
+        run: echo "firstword2=hello" >> $GITHUB_ENV
       - id: step3
         run: echo "reu output ${{ steps.step1.outputs.firstword }}"
       
