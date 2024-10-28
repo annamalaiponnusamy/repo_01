@@ -5,15 +5,11 @@ on:
 
 jobs:
   job1:
-    runs-on: ubuntu-latest
-    steps:
-        - uses: annamalaiponnusamy/repo_01/.github/workflows/reusableworkflow.yml@main
-        - name: Use Environment Variable
-          run: echo "The output value is:${{ env.firstword }}"
+    uses: annamalaiponnusamy/repo_01/.github/workflows/reusableworkflow.yml@main
     
   job2:
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
     needs: job1
     steps:
       
-      - run: echo ${{  needs.job1.env.firstword }} ${{ needs.job1.outputs.secondword }}
+      - run: echo ${{  needs.job1.outputs.firstword }} ${{ needs.job1.outputs.secondword }}
