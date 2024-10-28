@@ -10,6 +10,6 @@ jobs:
   job2:
     runs-on: ubuntu-latest
     needs: job1
-    if: ${{ env.firstword }} == 'hello'
+    if: ${{ env.firstword == 'hello' }}
     steps:
       - run: echo ${{ env.firstword }} ${{ needs.job1.outputs.secondword }}
