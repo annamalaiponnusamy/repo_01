@@ -1,0 +1,112 @@
+
+name: Trigger WinSip3 Up and Run
+
+on:
+   workflow_call:
+    inputs:
+      configuration:
+        required: true
+        type: string
+        
+   workflow_dispatch:
+    inputs:
+      configuration:
+        description: 'The name of the repository variable containing the configuration to check and potentially scale up/down'
+        required: true
+        type: string
+        default: 'IC_ASPF_WINSIPS'
+      direction:
+        description: 'The direction to scale the specified configuration'
+        required: true
+        type: choice
+        default: Up
+        options:
+        - Up
+        - Down  
+         
+jobs:
+  
+  CheckConfiguration:
+    runs-on: self-hosted
+    strategy:
+      matrix: 
+        configuration: [IC_ASPF_WINSIPS]
+    outputs:
+      enabled: ${{ steps.check_enabled.outputs.enabled }}
+      awsRoleArn: ${{ steps.check_enabled.outputs.awsRoleArn }}
+      direction: ${{ inputs.direction }}
+      logLevel: ${{ steps.check_enabled.outputs.logLevel }}
+      configuration: ${{ steps.check_enabled.outputs.configuration }}
+    steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v3
+    - id: check_enabled
+      run: |
+        cd ${{ github.workspace }}/.github/workflows
+        chmod +x ./ParseConfig.sh
+        echo '${{ vars[format(matrix.configuration)] }}' > variable.json 2> error.out
+        . ./ParseConfig.sh
+        
+  ScaleIfEnabled:
+    needs: CheckConfiguration
+    runs-on: self-hosted 
+    permissions:
+      id-token: write
+      contents: read
+    steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v3
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v3
+      with:
+        dotnet-version: 6.0.x
+    - name: Published App Cache
+      uses: actions/cache@v3
+      with:
+        path: ${{ github.workspace }}/bin/Release/net6.0
+        key: ${{ runner.os }}-app-${{ hashFiles('**/*.csproj', '**/*.cs', '**/*.config', '**/*.json') }} #hash of project/code/config files
+        restore-keys: |
+          ${{ runner.os }}-app-${{ hashFiles('**/*.csproj', '**/*.cs', '**/*.config', '**/*.json') }}
+   
+    - name: Configure AWS Credentials
+      uses: aws-actions/configure-aws-credentials@v2
+      with:
+        aws-region: us-west-2
+        role-to-assume: ${{ needs.CheckConfiguration.outputs.awsRoleArn }}
+        role-duration-seconds: 1200
+
+    - name: Describe arm64 Instance
+      id: ec2-describe-arm64
+      uses: truemark/aws-ec2-describe-instance-action@v2
+      with:
+          instance-id: "i-0eb9e5961e6e95371"
+          region: "us-west-2"
+
+    - name: Describe arm64 Instance 2
+      id: ec2-describe-arm64-2
+      uses: truemark/aws-ec2-describe-instance-action@v2
+      with:
+          instance-id: "i-068c82b69031b97c7"
+          region: "us-west-2"
+
+    - name: Wait for instances
+      id: ec2-wait
+      uses: truemark/aws-ec2-instance-wait-action@v3
+      with:
+          instance-ids: "i-068c82b69031b97c7"
+          region: "us-east-2"
+          timeout-ms: "600000"
+          
+  ChecksCluster:
+   needs: CheckConfiguration
+   runs-on: self-hosted
+   timeout-minutes: 5
+   steps:       
+      - name: Check ECS Service Health
+        uses: giner/ecs-service-health-action@v1.0.1
+        with:
+          cluster_name: "pfora-qawsp03.in.lab"
+          service_name: "HealthCheck"
+          timeout: 300
+          
+   
