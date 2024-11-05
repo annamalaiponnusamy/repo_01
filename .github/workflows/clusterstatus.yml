@@ -27,7 +27,7 @@ on:
 jobs:
   
   CheckConfiguration:
-    runs-on: self-hosted
+    runs-on: ubuntu-latest
     strategy:
       matrix: 
         configuration: [IC_ASPF_WINSIPS]
@@ -49,7 +49,7 @@ jobs:
         
   ScaleIfEnabled:
     needs: CheckConfiguration
-    runs-on: self-hosted 
+    runs-on: ubuntu-latest
     permissions:
       id-token: write
       contents: read
@@ -99,7 +99,7 @@ jobs:
           
   ChecksCluster:
    needs: CheckConfiguration
-   runs-on: self-hosted
+   runs-on: ubuntu-latest
    timeout-minutes: 5
    steps:       
       - name: Check ECS Service Health
