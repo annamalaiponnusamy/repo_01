@@ -25,6 +25,6 @@ jobs:
       - id: step2
         run: echo "::set-output name=secondword::world"
       - id: step3
-        run: echo "github output ${{ jobs.example_job.outputs.output1 }}"
+        run: echo "github output ${{ steps.step1.outputs.firstword }}"
       -
      
