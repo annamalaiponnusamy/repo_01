@@ -21,3 +21,4 @@ jobs:
           else
             echo "This is an unknown event"
           fi
+          echo "Value of the global variable: ${{ env.MY_GLOBAL_VARIABLE }}"
