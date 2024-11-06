@@ -6,8 +6,7 @@ on:
       configuration:
         required: true
         type: string
-    outputs:
-        jobclusterstatus: ${{ steps.step1.outputs.test }}
+    
   workflow_dispatch:
 
 jobs:
