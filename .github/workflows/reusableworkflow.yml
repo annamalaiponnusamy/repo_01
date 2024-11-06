@@ -26,5 +26,6 @@ jobs:
         run: echo "::set-output name=secondword::world"
       - id: step3
         run: echo "git output ${{ steps.step1.outputs.firstword }}"
-      
+      - name: Set Global Variable
+        run: ::set-env name=MY_GLOBAL_VARIABLE value=test
      
