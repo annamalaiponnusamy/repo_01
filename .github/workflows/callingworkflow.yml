@@ -10,7 +10,14 @@ jobs:
   job2:
     runs-on: ubuntu-latest
     needs: job1
-    if:  needs.job1.outputs.firstword == 'pass'
+    
     steps:
       
       - run: echo ${{  needs.job1.outputs.firstword }} ${{ needs.job1.outputs.secondword }}
+      - name: What is the event?
+        run: |
+          if [ needs.job1.outputs.firstword == 'pass' ]; then
+            echo "This is a pass case event"          
+          else
+            echo "This is an unknown event"
+          fi
