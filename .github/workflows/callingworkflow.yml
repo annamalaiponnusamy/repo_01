@@ -16,7 +16,7 @@ jobs:
       - run: echo ${{  needs.job1.outputs.firstword }} ${{ needs.job1.outputs.secondword }}
       - name: What is the event?
         run: |
-          if [ ${{ needs.job1.outputs.firstword }} == 'pass' ]; then
+          if ${{ needs.job1.outputs.firstword }} == 'pass' ; then
             echo "This is a pass case event"          
           else
             echo "This is an unknown event"
