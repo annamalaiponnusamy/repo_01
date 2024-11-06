@@ -21,11 +21,10 @@ jobs:
       output2: ${{ steps.step2.outputs.secondword }}
     steps:
       - id: step1
-        run:  echo "firstword='pass'" >> $GITHUB_OUTPUT
+        run:  echo "firstword=pass" >> $GITHUB_OUTPUT
       - id: step2
         run: echo "::set-output name=secondword::world"
       - id: step3
-        run: echo "reu output ${{ steps.step1.outputs.firstword }}"
-      - name: Set output
-        run: echo "{firstword}={'pass'}" >> $GITHUB_OUTPUT
+        run: echo "github output ${{ jobs.example_job.outputs.output1 }}"
+      -
      
