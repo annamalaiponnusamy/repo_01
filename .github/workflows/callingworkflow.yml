@@ -10,7 +10,7 @@ jobs:
   job2:
     runs-on: windows-latest
     needs: job1
-    if: needs.job1.outputs.firstword == 'pass'
+    if:  ${{  needs.job1.outputs.firstword == 'pass'}}
     steps:
       
       - run: echo ${{  needs.job1.outputs.firstword }} ${{ needs.job1.outputs.secondword }}
