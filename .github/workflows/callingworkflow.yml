@@ -5,7 +5,12 @@ on:
 
 jobs:
   job1:
-    uses: annamalaiponnusamy/repo_01/.github/workflows/reusableworkflow.yml@main
+    runs-on: ubuntu-latest
+    steps:
+         - uses: actions/checkout@v3
+         - run: |
+            echo "MY_VARIABLE=value1" >> $GITHUB_ENV
+         - uses: annamalaiponnusamy/repo_01/.github/workflows/reusableworkflow.yml@main
     
   job2:
     runs-on: ubuntu-latest
