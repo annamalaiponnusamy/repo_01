@@ -15,11 +15,15 @@ jobs:
            repo: annamalaiponnusamy/repo_02
            token: ${{ secrets.ACTIONS_KEY  }}
            workflow-logs: json-output
-           wait-for-completion-timeout: 5m
+           wait-for-completion-timeout: 1m
            wait-for-completion-interval: 20s
            display-workflow-run-url-interval: 20s
-           display-workflow-run-url-timeout: 5m    
+           display-workflow-run-url-timeout: 1m    
            run-name: '1234'
+           inputs: >-
+            {
+            "run-name": "12345"
+            }
     
   job2:
     runs-on: ubuntu-latest
