@@ -19,7 +19,7 @@ jobs:
            wait-for-completion-interval: 20s
            display-workflow-run-url-interval: 20s
            display-workflow-run-url-timeout: 5m    
-           inputs: '{ "message": "blah blah", "debug": true }'
+           run-name: '1234'
     
   job2:
     runs-on: ubuntu-latest
