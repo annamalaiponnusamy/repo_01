@@ -19,7 +19,7 @@ jobs:
            wait-for-completion-interval: 20s
            display-workflow-run-url-interval: 20s
            display-workflow-run-url-timeout: 5m    
-           inputs: {"myInput":"foobar"}
+           inputs: '{"myInput":"foobar"}'
     
   job2:
     runs-on: ubuntu-latest
