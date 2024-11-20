@@ -21,7 +21,7 @@ jobs:
       output2: ${{ steps.step2.outputs.secondword }}
     steps:
       - id: step22
-        run: echo "Using the variable:${{ env.MY_VARIABLE }}"
+        run: echo "The value of the variable is:${{ secrets.my_variable }}"
       - id: step1
         run:  echo "firstword=pass" >> $GITHUB_OUTPUT
       - id: step2
