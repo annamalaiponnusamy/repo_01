@@ -34,8 +34,7 @@ jobs:
     needs: job1
     if: always()
     steps:
-      
       - run: |
           echo "run id : ${{  needs.job1.outputs.workflow-id }}" 
           echo "workflow-conclusion id : ${{ needs.job1.outputs.workflow-conclusion }}"
-       
+          echo ${{ needs.job1.outputs.firstword }} ${{ needs.job1.outputs.secondword }}
