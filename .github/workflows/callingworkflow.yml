@@ -33,12 +33,7 @@ jobs:
     
     steps:
       
-      - run: echo ${{  needs.job1.outputs.runid }} ${{ needs.job1.outputs.secondword }}
-      - name: What is the event?
-        run: |
-          if [ ${{ needs.job1.outputs.firstword }} == 'pass' ]; then
-            echo "This is a pass case event"          
-          else
-            echo "This is an unknown event"
-          fi
-          echo "Value of the global variable: ${{ env.MY_GLOBAL_VARIABLE }}"
+      - run: |
+          echo "run id : ${{  needs.job1.outputs.workflow-id }}" 
+          echo "workflow-conclusion id : ${{ needs.job1.outputs.workflow-conclusion }}"
+       
