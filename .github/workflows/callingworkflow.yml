@@ -33,7 +33,7 @@ jobs:
     
     steps:
       
-      - run: echo ${{  needs.job1.outputs.firstword }} ${{ needs.job1.outputs.secondword }}
+      - run: echo ${{  needs.job1.outputs.runid }} ${{ needs.job1.outputs.secondword }}
       - name: What is the event?
         run: |
           if [ ${{ needs.job1.outputs.firstword }} == 'pass' ]; then
