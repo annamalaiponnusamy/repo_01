@@ -6,7 +6,7 @@ on:
 jobs:
   job1:
     if: ${{ false }} 
-    uses: octo-org/example-repo/.github/workflows/called-workflow.yml@v1
+    uses: annamalaiponnusamy/repo_02/.github/workflows/targetcalle.yml@main
 
   job2:
     runs-on: ubuntu-latest
