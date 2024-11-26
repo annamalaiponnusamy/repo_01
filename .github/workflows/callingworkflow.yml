@@ -5,7 +5,7 @@ on:
 
 jobs:
   job1:
-    uses: annamalaiponnusamy/repo_02/.github/workflows/targetcalle.yml@v1
+    uses: annamalaiponnusamy/repo_02/.github/workflows/targetcalle.yml@main
 
   job2:
     runs-on: ubuntu-latest
