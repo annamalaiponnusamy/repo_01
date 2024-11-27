@@ -29,6 +29,7 @@ jobs:
             echo 'run id :${{steps.trigger-step.outputs.workflow-logs}}' 
             echo 'run id :${{steps.trigger-step.outputs.workflow-id}}' 
             echo "workflow-conclusion id:${{ steps.trigger-step.outputs.workflow-conclusion }}"
+            echo ${{ steps.trigger-step.outputs.firstword }} ${{ steps.trigger-step.outputs.secondword }}
         
   job2:
     runs-on: ubuntu-latest
