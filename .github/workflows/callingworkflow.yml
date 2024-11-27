@@ -31,9 +31,8 @@ jobs:
        run: |
             
             echo "Another Workflow conclusion: ${{ steps.trigger-step.outputs.workflow-conclusion }}"
-                     
-            string = steps.trigger-step.outputs.workflow-logs
-            words_with_x=$(echo "$string" | grep -o 'x[^x]*x')            
+            echo '${{ fromJSON(steps.trigger-step.outputs.workflow-logs).example_job }}'         
+                       
             
      - name: Get result
        run: echo "$words_with_x"    
