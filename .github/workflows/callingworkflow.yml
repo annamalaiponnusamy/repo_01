@@ -29,12 +29,8 @@ jobs:
        id: trigger-step2
        if: always()
        run: |
-            #$dd = ${{ fromJSON(steps.trigger-step.outputs.workflow-logs).example_job }}
-            string= "annamalai xrunid1000y gandhi"          
-            result="${string#*x}" 
-            result="${result%%y*}y" 
-            result="x$result" 
-            echo "$result" 
+            
+            echo "test" 
         
   job2:
     runs-on: ubuntu-latest
