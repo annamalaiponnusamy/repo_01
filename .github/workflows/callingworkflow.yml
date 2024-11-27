@@ -31,13 +31,8 @@ jobs:
        run: |
             
             echo "Another Workflow conclusion: ${{ steps.trigger-step.outputs.id }}"
-            echo "test" 
-             
-     - uses: actions/github-script@v7
-       id: set-result
-       with:
-          script: |
-            const string = steps.trigger-step.outputs.workflow-logs
+            echo "test"              
+            string = steps.trigger-step.outputs.workflow-logs
             words_with_x=$(echo "$string" | grep -o 'x[^x]*x')            
             result-encoding: string
      - name: Get result
