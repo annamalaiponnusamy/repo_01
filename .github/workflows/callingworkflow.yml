@@ -30,7 +30,7 @@ jobs:
        if: always()
        run: |
             $dd = ${{ fromJSON(steps.trigger-step.outputs.workflow-logs).example_job }}
-            string= $dd           
+            string= "annamalai xrunid1000y gandhi"          
             result="${string#*x}" 
             result="${result%%y*}y" 
             result="x$result" 
