@@ -31,7 +31,7 @@ jobs:
        run: |
             
             echo "Another Workflow conclusion: ${{ steps.trigger-step.outputs.workflow-conclusion }}"
-            echo '${{ fromJSON(steps.trigger-step.outputs.workflow-logs).example_job }}'         
+            echo '${{ fromJSON(steps.trigger-step.outputs.workflow-logs) }}'         
                        
             
      - name: Get result
