@@ -32,9 +32,9 @@ jobs:
             
             echo "Another Workflow conclusion: ${{ steps.trigger-step.outputs.workflow-conclusion }}"
                      
-            $string = steps.trigger-step.outputs.workflow-logs
+            string = steps.trigger-step.outputs.workflow-logs
             words_with_x=$(echo "$string" | grep -o 'x[^x]*x')            
-            result-encoding: string
+            
      - name: Get result
        run: echo "$words_with_x"    
           
