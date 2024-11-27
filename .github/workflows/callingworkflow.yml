@@ -29,9 +29,7 @@ jobs:
        id: trigger-step2
        if: always()
        run: |
-            #echo 'run id :${{steps.trigger-step.outputs.workflow-logs}}' 
-            #run: echo "output1=hello" >> $GITHUB_OUTPUT
-            echo '${{ fromJSON(steps.trigger-step.outputs.workflow-logs).example_job }}'
+           
             string= ${{steps.trigger-step.outputs.workflow-logs}}            
             result="${string#*x}" 
             result="${result%%y*}y" 
