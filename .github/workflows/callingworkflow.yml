@@ -6,6 +6,8 @@ on:
 jobs:
   job1:
    runs-on: ubuntu-latest
+   outputs:
+      output1: ${{ steps.trigger-step.outputs.firstword }}
    steps: 
      - name: Trigger the Workflow in auto gatling execution Repository
        id: trigger-step
@@ -30,7 +32,7 @@ jobs:
             echo 'run id :${{steps.trigger-step.outputs.workflow-logs}}' 
             echo 'run id :${{steps.trigger-step.outputs.workflow-id}}' 
             echo "workflow-conclusion id:${{ steps.trigger-step.outputs.workflow-conclusion }}"
-            echo ${{ steps.trigger-step.outputs.firstword }} ${{ steps.trigger-step.outputs.secondword }}
+            echo ${{ steps.trigger-step.outputs.firstword }} ${{ steps.trigger-step.outputs.output1 }}
         
   job2:
     runs-on: ubuntu-latest
@@ -39,5 +41,5 @@ jobs:
       - run: |
           echo "run id : ${{  needs.job1.outputs.workflow-id }}" 
           echo "workflow-conclusion id : ${{ needs.job1.outputs.workflow-conclusion }}"
-          echo ${{ needs.job1.outputs.firstword }} ${{ needs.job1.outputs.secondword }}
+          echo ${{ needs.job1.outputs.firstword }} ${{ needs.job1.outputs.output1 }}
           
