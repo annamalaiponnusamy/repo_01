@@ -32,10 +32,11 @@ jobs:
        run: |
             echo 'run id :${{steps.trigger-step.outputs.workflow-logs}}' 
             run: echo "output1=hello" >> $GITHUB_OUTPUT
-            $string= ${{steps.trigger-step.outputs.workflow-logs}}
-            # To get the full words containing "^":
-            $words_with_caret = $(echo "$string" | sed 's/\([^ ]*\^.*\)/\1/g')            
-            echo "$words_with_caret"
+            string= ${{steps.trigger-step.outputs.workflow-logs}}            
+            result="${string#*x}" 
+            result="${result%%y*}y" 
+            result="x$result" 
+            echo "$result" 
         
   job2:
     runs-on: ubuntu-latest
