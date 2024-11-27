@@ -34,7 +34,7 @@ jobs:
             echo "workflow-conclusion id:${{ steps.trigger-step.outputs.workflow-conclusion }}"
             echo ${{ steps.trigger-step.outputs.output1 }} 
             echo ${{ steps.trigger-step.outputs.output2 }}
-            echo ${{ jobs.job1.outputs.firstword }}
+             
         
   job2:
     runs-on: ubuntu-latest
