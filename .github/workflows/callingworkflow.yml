@@ -16,7 +16,7 @@ jobs:
            workflow: Another Workflow
            repo: annamalaiponnusamy/repo_02
            token: ${{ secrets.ACTIONS_KEY  }}
-           
+           workflow-logs: output
            wait-for-completion-timeout: 1m
            wait-for-completion-interval: 20s
            display-workflow-run-url-interval: 20s
