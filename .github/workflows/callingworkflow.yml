@@ -7,7 +7,7 @@ jobs:
   job1:
    runs-on: ubuntu-latest
    outputs:
-      output1: ${{ steps.trigger-step.outputs.firstword }}
+      output1: ${{ steps.trigger-step2.outputs.output1 }}
    steps: 
      - name: Trigger the Workflow in auto gatling execution Repository
        id: trigger-step
@@ -27,22 +27,20 @@ jobs:
             "run-name": "12345"
             }
      - name: Another step that can handle the result
+       id: trigger-step2
        if: always()
        run: |
             echo 'run id :${{steps.trigger-step.outputs.workflow-logs}}' 
-            echo 'run id :${{steps.trigger-step.outputs.workflow-id}}' 
-            echo "workflow-conclusion id:${{ steps.trigger-step.outputs.workflow-conclusion }}"
-            echo ${{ steps.trigger-step.outputs.output1 }} 
-            echo ${{ steps.trigger-step.outputs.output2 }}
-             
+            run: echo "output1=hello" >> $GITHUB_OUTPUT
+            $string= ${{steps.trigger-step.outputs.workflow-logs}}
+            # To get the full words containing "^":
+            $words_with_caret = $(echo "$string" | sed 's/\([^ ]*\^.*\)/\1/g')            
+            echo "$words_with_caret"
         
   job2:
     runs-on: ubuntu-latest
     needs: job1    
     steps:      
-      - run: |
-          echo "run id : ${{  needs.job1.outputs.workflow-id }}" 
-          echo "workflow-conclusion id : ${{ needs.job1.outputs.workflow-conclusion }}"
-          echo ${{ needs.job1.outputs.firstword }} 
+      - run: |          
           echo ${{ needs.job1.outputs.output1 }}
           
