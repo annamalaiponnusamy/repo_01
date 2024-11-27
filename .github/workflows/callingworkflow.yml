@@ -30,6 +30,8 @@ jobs:
        if: always()
        run: |
             echo "Another Workflow conclusion: ${{ steps.trigger-step.outputs.workflow-id }}"
+            echo "Another Workflow conclusion: ${{ steps.trigger-step.outputs.result }}"
+            echo "Another Workflow conclusion: ${{ steps.trigger-step.outputs.id }}"
             echo "test" 
         
   job2:
