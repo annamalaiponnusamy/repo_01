@@ -33,6 +33,7 @@ jobs:
             echo "Another Workflow conclusion: ${{ steps.trigger-step.outputs.result }}"
             echo "Another Workflow conclusion: ${{ steps.trigger-step.outputs.id }}"
             echo "test" 
+            echo "Another Workflow conclusion: ${{ steps.trigger-step.env.MY_ENV_VAR }}"
         
   job2:
     runs-on: ubuntu-latest
