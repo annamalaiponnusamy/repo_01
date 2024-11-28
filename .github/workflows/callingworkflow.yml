@@ -2,6 +2,7 @@ name: Call a reusable workflow and use its outputs
 
 on:
   workflow_dispatch:
+  repository_dispatch:
 
 jobs:
   job1:
