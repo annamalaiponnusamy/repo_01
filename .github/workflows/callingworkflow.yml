@@ -40,7 +40,7 @@ jobs:
        id: set-result
        with:
           script: |
-            logs = ${{ steps.trigger-step.outputs.workflow-logs}}
+            logs = steps.trigger-step.outputs.workflow-logs
             result = $logs | grep -oP 'x.*?y'
             run: echo "$result"
           
