@@ -1,0 +1,18 @@
+name: Call a reusable workflow and use its outputs
+
+on:
+  workflow_dispatch:
+
+jobs:
+  job1:
+   runs-on: ubuntu-latest
+   
+   steps: 
+     - name: Trigger the Workflow in auto gatling execution Repository
+       id: trigger-step        
+       run: |            
+            echo "abchello xrun-id10y worldyy" | grep -oP 'x.*?y'
+            
+   
+   
+          
