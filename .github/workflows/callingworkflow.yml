@@ -38,7 +38,7 @@ jobs:
             substring=$(echo "$logs" | grep -oP 'x.*?y')
             echo "Extracted substring: $substring"
             words=( $substring )
-            word = ${words[0]}
+            word = $(echo "${words[0]}")
             cut="${word:1:-1}" 
             echo $cut
     
