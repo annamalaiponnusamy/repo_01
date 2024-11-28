@@ -34,10 +34,10 @@ jobs:
        run: |
             
             echo "Another Workflow conclusion: ${{ steps.trigger-step.outputs.workflow-conclusion }}" 
-            echo ${{ steps.trigger-step.outputs.workflow-logs}} | grep -oP 'x.*?y'
+            echo (${{ steps.trigger-step.outputs.workflow-logs}} | grep -oP 'x.*?y'):1:-1
                       
-            logs=$(echo "${{ steps.trigger-step.outputs.workflow-logs }}")
-            substring=$(echo "$logs" | grep -oP 'x.*?y')
+            logs=$(echo ${{ steps.trigger-step.outputs.workflow-logs }})
+            substring=$(echo $logs | grep -oP 'x.*?y')
             echo "Extracted substring: $substring"
    
  
