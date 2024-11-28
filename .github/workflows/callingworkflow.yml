@@ -35,7 +35,7 @@ jobs:
             
             echo "Another Workflow conclusion: ${{ steps.trigger-step.outputs.workflow-conclusion }}" 
             #logs = echo ${{ steps.trigger-step.outputs.workflow-logs}} | grep -oP 'x.*?y'
-            logs=$(echo "ann xRUNID-10y malai")
+            logs=$(echo "${{ steps.trigger-step.outputs.workflow-logs}}")
             substring=$(echo "$logs" | grep -oP 'x.*?y')
             echo "Extracted substring: $substring"
     
