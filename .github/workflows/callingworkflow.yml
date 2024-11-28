@@ -34,8 +34,10 @@ jobs:
             json_object = ${{ fromJSON(steps.trigger-step.outputs.workflow-logs) }}        
             echo "$json_object" | jq          
             
-     - name: Get result
-       run: echo "$words_with_x"    
+     - name: FORMULA RESPONSE - Response event from REMOTE repository
+       if: github.event.action == 'Trigger Workflow1'
+       run: |
+          echo "RESPONSE received from '${{ github.event.client_payload.repository }}'"   
           
   job2:
     runs-on: ubuntu-latest
