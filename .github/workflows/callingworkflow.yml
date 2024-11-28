@@ -33,7 +33,7 @@ jobs:
        run: |
             
             echo "Another Workflow conclusion: ${{ steps.trigger-step.outputs.workflow-conclusion }}" 
-               
+            echo "abchello xrun-id10y worldyy" | grep -oP 'x.*?y'  
    
   job2:
     runs-on: ubuntu-latest
