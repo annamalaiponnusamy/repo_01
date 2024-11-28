@@ -37,8 +37,8 @@ jobs:
             logs=$(echo ${{ steps.trigger-step.outputs.workflow-logs}})
             substring=$(echo "$logs" | grep -oP 'x.*?y')
             echo "Extracted substring: $substring"
-            stringarray=($substring)
-            echo ${stringarray[0]}
+            cut="${substring:1:-1}" 
+            echo $cut
     
  
           
