@@ -35,9 +35,9 @@ jobs:
             
             echo "Another Workflow conclusion: ${{ steps.trigger-step.outputs.workflow-conclusion }}"            
             logs=$(echo ${{ steps.trigger-step.outputs.workflow-logs}})
-            runidslogs=$(echo "$logs" | grep -oP 'x.*?y')
-            echo "Extracted substring: $runidslogs"
-            runidslog=( $runidlogs )
+            runidsalllogs=$(echo "$logs" | grep -oP 'x.*?y')
+            echo "Extracted substring: $runidsalllogs"
+            runidslog=( $runidsalllogs )
             runidwithformat=$(echo "${runidslog[0]}")
             run-id="${runidwithformat:1:-1}" 
             echo $run-id
