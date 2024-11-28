@@ -37,10 +37,10 @@ jobs:
             logs=$(echo ${{ steps.trigger-step.outputs.workflow-logs}})
             substring=$(echo "$logs" | grep -oP 'x.*?y')
             echo "Extracted substring: $substring"
-            #dup = $(echo "$substring" | sed -r ':a; s/\b([[:alnum:]]+)\b(.*)\b\1\b/\1\2/g; ta; s/(, )+/, /g; s/, *$//')
-            echo "$substring"  | sed -r ':a; s/\b([[:alnum:]]+)\b(.*)\b\1\b/\1\2/g; ta; s/(, )+/, /g; s/, *$//'
-            #cut="${dup:1:-1}" 
-            #echo $cut
+            words=( $substring )
+            word = ${words[0]}
+            cut="${word:1:-1}" 
+            echo $cut
     
  
           
