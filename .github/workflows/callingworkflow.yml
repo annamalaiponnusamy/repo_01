@@ -31,8 +31,7 @@ jobs:
        run: |
             
             echo "Another Workflow conclusion: ${{ steps.trigger-step.outputs.workflow-conclusion }}"
-            json_object = ${{ fromJSON(steps.trigger-step.outputs.workflow-logs) }}        
-            echo "$json_object" | jq          
+            
             
      - name: FORMULA RESPONSE - Response event from REMOTE repository
        if: github.event.action == 'Trigger Workflow1'
