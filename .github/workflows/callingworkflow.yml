@@ -33,12 +33,11 @@ jobs:
        if: always()
        run: |
             
-            echo "Another Workflow conclusion: ${{ steps.trigger-step.outputs.workflow-conclusion }}" 
-            #logs = echo ${{ steps.trigger-step.outputs.workflow-logs}} | grep -oP 'x.*?y'
+            echo "Another Workflow conclusion: ${{ steps.trigger-step.outputs.workflow-conclusion }}"            
             logs=$(echo ${{ steps.trigger-step.outputs.workflow-logs}})
             substring=$(echo "$logs" | grep -oP 'x.*?y')
             echo "Extracted substring: $substring"
+            echo ${substring[0]}
     
-
  
           
