@@ -31,13 +31,8 @@ jobs:
        if: always()
        run: |
             
-            echo "Another Workflow conclusion: ${{ steps.trigger-step.outputs.workflow-conclusion }}"
-            
-            
-     - name: FORMULA RESPONSE - Response event from REMOTE repository
-       if: github.event.action == 'Trigger Workflow1'
-       run: |
-          echo "RESPONSE received from '${{ github.event.client_payload.repository }}'"   
+            echo "Another Workflow conclusion: ${{ steps.trigger-step.outputs.workflow-conclusion }}" 
+               
           
   job2:
     runs-on: ubuntu-latest
