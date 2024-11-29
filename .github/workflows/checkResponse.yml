@@ -18,7 +18,7 @@ jobs:
            workflow: Get MoAutomation RunID
            repo: inContact/qa-aspf-config-check
            token: ${{ secrets.ACTIONS_KEY  }}
-           workflow-logs: json-output
+           workflow-logs: output
            wait-for-completion-timeout: 30s
            wait-for-completion-interval: 20s
            display-workflow-run-url-interval: 20s
