@@ -15,8 +15,8 @@ jobs:
        id: trigger-step
        uses: the-actions-org/workflow-dispatch@v4 
        with:
-           workflow: Get MoAutomation RunID
-           repo: inContact/qa-aspf-config-check
+           workflow: Another Workflow
+           repo: annamalaiponnusamy/repo_02
            token: ${{ secrets.ACTIONS_KEY  }}
            workflow-logs: output
            wait-for-completion-timeout: 30s
