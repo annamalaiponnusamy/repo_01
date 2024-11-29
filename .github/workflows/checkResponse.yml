@@ -1,0 +1,51 @@
+
+name: Response check
+
+on:
+  workflow_dispatch:
+  repository_dispatch:   
+
+jobs:
+  job1:
+   runs-on: ubuntu-latest
+   outputs:
+      output1: ${{ steps.trigger-step2.outputs.output1 }}
+   steps: 
+     - name: Trigger the Workflow in auto gatling execution Repository
+       id: trigger-step-runid
+       uses: the-actions-org/workflow-dispatch@v4
+       with:
+          workflow: Get MoAutomation RunID
+          repo: inContact/qa-aspf-config-check
+          token: ${{ secrets.ACTIONS_KEY  }}
+          workflow-logs: json-output
+          wait-for-completion-timeout: 5m
+          wait-for-completion-interval: 20s
+          display-workflow-run-url-interval: 20s
+          display-workflow-run-url-timeout: 5m 
+          wait-for-completion: true
+	  
+     - name: Result to Run ID from MO Response
+       id: joboutputstep       
+       run: |         
+         if [ ${{contains(steps.trigger-step-runid.outputs.workflow-logs , 'moautomationsuccess')}} ]; then
+          echo "response-output=pass" >> $GITHUB_OUTPUT         
+         else
+          echo "response-output=fail" >> $GITHUB_OUTPUT
+         fi 
+            
+            echo "Another Workflow conclusion: ${{ steps.trigger-step-runid.outputs.workflow-conclusion }}"  
+            echo "Another Workflow logs: ${{ steps.trigger-step-runid.outputs.workflow-logs }}"  
+            logs=$(echo ${{ steps.trigger-step-runid.outputs.workflow-logs}})
+            substring=$(echo "$logs" | grep -oP 'x.*?y')
+            echo "Extracted substring: $substring"
+            words=( $substring )
+            echo "$words"
+            word=$(echo "${words[0]}")
+            echo "$word"
+            cut="${word:1:-1}" 
+            echo $cut
+            echo "global-runid=12" >> $GITHUB_OUTPUT 
+             
+   
+	           
