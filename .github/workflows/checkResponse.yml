@@ -28,12 +28,6 @@ jobs:
      - name: Result to Run ID from MO Response
        id: joboutputstep       
        run: |         
-         if [ ${{contains(steps.trigger-step-runid.outputs.workflow-logs , 'moautomationsuccess')}} ]; then
-          echo "response-output=pass" >> $GITHUB_OUTPUT         
-         else
-          echo "response-output=fail" >> $GITHUB_OUTPUT
-         fi 
-            
             echo "Another Workflow conclusion: ${{ steps.trigger-step-runid.outputs.workflow-conclusion }}"  
             echo "Another Workflow logs: ${{ steps.trigger-step-runid.outputs.workflow-logs }}"  
             logs=$(echo ${{ steps.trigger-step-runid.outputs.workflow-logs}})
