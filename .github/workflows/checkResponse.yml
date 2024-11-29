@@ -1,4 +1,4 @@
-name: Call a reusable workflow and use its outputs
+name: response test
 
 on:
   workflow_dispatch:
@@ -15,7 +15,7 @@ jobs:
        id: trigger-step
        uses: the-actions-org/workflow-dispatch@v4 
        with:
-           workflow: Another Workflow
+           workflow: Get MoAutomation RunID
            repo: annamalaiponnusamy/repo_02
            token: ${{ secrets.ACTIONS_KEY  }}
            workflow-logs: json-output
@@ -33,14 +33,18 @@ jobs:
        if: always()
        run: |
             
-            echo "Another Workflow conclusion: ${{ steps.trigger-step.outputs.workflow-conclusion }}"            
-            logs=$(echo ${{ steps.trigger-step.outputs.workflow-logs}})
+            echo "Another Workflow conclusion: ${{ steps.trigger-step-runid.outputs.workflow-conclusion }}"  
+            echo "Another Workflow logs: ${{ steps.trigger-step-runid.outputs.workflow-logs }}"  
+            logs=$(echo ${{ steps.trigger-step-runid.outputs.workflow-logs}})
             substring=$(echo "$logs" | grep -oP 'x.*?y')
             echo "Extracted substring: $substring"
             words=( $substring )
+            echo "$words"
             word=$(echo "${words[0]}")
+             echo "$word"
             cut="${word:1:-1}" 
             echo $cut
+            echo "global-runid=12" >> $GITHUB_OUTPUT 
     
  
           
