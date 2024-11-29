@@ -38,11 +38,11 @@ jobs:
             logs=$(echo ${{ steps.trigger-step.outputs.workflow-logs}})
             substring=$(echo "$logs" | grep -oP 'X.*?Y')
             echo "Extracted substring: $substring"
-            #words=( $substring )
-            #echo "$words"
-            #word=$(echo "${words[0]}")
-            # echo "$word"
-            cut="${substring:1:-1}" 
+            words=( $substring )
+            echo "$words"
+            word=$(echo "${words[0]}")
+            echo "$word"
+            cut="${word:1:-1}" 
             echo $cut
             echo "global-runid=12" >> $GITHUB_OUTPUT 
     
