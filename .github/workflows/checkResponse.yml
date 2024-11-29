@@ -34,15 +34,15 @@ jobs:
        run: |
             
             echo "Another Workflow conclusion: ${{ steps.trigger-step-runid.outputs.workflow-conclusion }}"  
-            echo "Another Workflow logs: ${{ steps.trigger-step-runid.outputs.workflow-logs }}"  
+            #echo "Another Workflow logs: ${{ steps.trigger-step-runid.outputs.workflow-logs }}"  
             logs=$(echo ${{ steps.trigger-step-runid.outputs.workflow-logs}})
             substring=$(echo "$logs" | grep -oP 'x.*?y')
             echo "Extracted substring: $substring"
-            words=( $substring )
-            echo "$words"
-            word=$(echo "${words[0]}")
-             echo "$word"
-            cut="${word:1:-1}" 
+            #words=( $substring )
+            #echo "$words"
+            #word=$(echo "${words[0]}")
+            # echo "$word"
+            cut="${substring:1:-1}" 
             echo $cut
             echo "global-runid=12" >> $GITHUB_OUTPUT 
     
