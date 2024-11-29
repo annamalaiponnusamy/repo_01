@@ -23,7 +23,7 @@ jobs:
            wait-for-completion-interval: 20s
            display-workflow-run-url-interval: 20s
            display-workflow-run-url-timeout: 30s  
-           wait-for-completion: true
+           
            inputs: >-
             {
             "run-name": "12345"
