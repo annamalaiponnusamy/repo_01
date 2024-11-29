@@ -32,7 +32,7 @@ jobs:
        id: trigger-step2
        if: always()
        run: |
-            
+            echo '${{ fromJSON(steps.trigger-step.outputs.workflow-logs).example_job }}'
             echo "Another Workflow conclusion: ${{ steps.trigger-step.outputs.workflow-conclusion }}"  
             #echo "Another Workflow logs: ${{ steps.trigger-step.outputs.workflow-logs }}"  
             logs="${{ steps.trigger-step.outputs.workflow-logs}}"
