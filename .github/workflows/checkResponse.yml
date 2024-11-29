@@ -23,8 +23,7 @@ jobs:
           wait-for-completion-interval: 20s
           display-workflow-run-url-interval: 20s
           display-workflow-run-url-timeout: 5m 
-          wait-for-completion: true
-	  
+          wait-for-completion: true	  
      - name: Result to Run ID from MO Response
        id: joboutputstep       
        run: |         
