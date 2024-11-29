@@ -1,9 +1,9 @@
-
-name: Response check
+name: Call a reusable workflow and use its outputs
 
 on:
   workflow_dispatch:
-  repository_dispatch:   
+  repository_dispatch:
+   
 
 jobs:
   job1:
@@ -12,19 +12,35 @@ jobs:
       output1: ${{ steps.trigger-step2.outputs.output1 }}
    steps: 
      - name: Trigger the Workflow in auto gatling execution Repository
-       id: trigger-step-runid
-       uses: the-actions-org/workflow-dispatch@v4
+       id: trigger-step
+       uses: the-actions-org/workflow-dispatch@v4 
        with:
-          workflow: Get MoAutomation RunID
-          repo: inContact/qa-aspf-config-check
-          token: ${{ secrets.ACTIONS_KEY  }}
-          workflow-logs: json-output
-          wait-for-completion-timeout: 5m
-          wait-for-completion-interval: 20s
-          display-workflow-run-url-interval: 20s
-          display-workflow-run-url-timeout: 5m 
-          wait-for-completion: true	  
+           workflow: Another Workflow
+           repo: annamalaiponnusamy/repo_02
+           token: ${{ secrets.ACTIONS_KEY  }}
+           workflow-logs: json-output
+           wait-for-completion-timeout: 30s
+           wait-for-completion-interval: 20s
+           display-workflow-run-url-interval: 20s
+           display-workflow-run-url-timeout: 30s  
+           wait-for-completion: true
+           inputs: >-
+            {
+            "run-name": "12345"
+            }
+     - name: Another step that can handle the result
+       id: trigger-step2
+       if: always()
+       run: |
+            
+            echo "Another Workflow conclusion: ${{ steps.trigger-step.outputs.workflow-conclusion }}"            
+            logs=$(echo ${{ steps.trigger-step.outputs.workflow-logs}})
+            substring=$(echo "$logs" | grep -oP 'x.*?y')
+            echo "Extracted substring: $substring"
+            words=( $substring )
+            word=$(echo "${words[0]}")
+            cut="${word:1:-1}" 
+            echo $cut
     
-             
-   
-	           
+ 
+          
