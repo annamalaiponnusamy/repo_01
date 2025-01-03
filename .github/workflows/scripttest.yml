@@ -11,7 +11,14 @@ jobs:
      - name: Trigger the Workflow in auto gatling execution Repository
        id: trigger-step        
        run: |            
-            echo "abchello xrun-id10y worldyy" | grep -oP 'x.*?y'
+            input_string="Runid15,2025-01-03 17:03,2025-01-03 17:05"
+            IFS=$2 read -ra string_split <<< "$input_string"
+            
+            #Print the split string
+            for i in "${string_split[@]}"
+            do
+                echo "|$i|"
+            done
             
    
    
