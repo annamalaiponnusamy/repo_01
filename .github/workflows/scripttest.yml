@@ -13,7 +13,7 @@ jobs:
        run: |            
             input_string="Runid15,2025-01-03 17:03,2025-01-03 17:05"
             
-            IFS=',' read -r -a my_array <<< "$input_string"
+            IFS=',' read -r -a string_split <<< "$input_string"
             
             #Print the split string
            
