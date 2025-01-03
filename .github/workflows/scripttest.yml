@@ -15,10 +15,11 @@ jobs:
             IFS=$2 read -ra string_split <<< "$input_string"
             
             #Print the split string
-            for i in "${string_split[@]}"
-            do
-                echo "|$i|"
-            done
+           
+               echo "${string_split[0]}" 
+               echo "${string_split[1]}"
+               echo "${string_split[2]}"
+             
             
    
    
