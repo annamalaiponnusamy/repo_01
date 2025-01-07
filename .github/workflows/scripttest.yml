@@ -21,13 +21,9 @@ jobs:
                echo "${string_split[1]}"
                echo "${string_split[2]}"
              
-            STATUS = "pass"     
+            $STATUS = "pass"     
             echo "The status of application is: $STATUS"             
-            if [[ "${STATUS}" == *"pass"* ]]; then
-             echo "pass""         
-            else
-             echo "fail"
-            fi
+           
    
    
           
