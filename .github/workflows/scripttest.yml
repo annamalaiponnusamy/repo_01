@@ -20,9 +20,16 @@ jobs:
                echo "${string_split[0]}" 
                echo "${string_split[1]}"
                echo "${string_split[2]}"
-             
-            $STATUS = "pass"     
-            echo "The status of application is: $STATUS"             
+      
+     - name: Trigger the Workflow in auto gatling execution Repository2       
+       run:  |
+         STATUS = "pass"     
+         echo "The status of application is: $STATUS" 
+         if [ "$STATUS == 'pass' " ]; then
+         echo "pass""         
+         else
+         echo "fail"
+         fi               
            
    
    
