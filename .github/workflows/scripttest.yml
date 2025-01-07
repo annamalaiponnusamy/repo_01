@@ -23,7 +23,7 @@ jobs:
       
      - name: Trigger the Workflow in auto gatling execution Repository2       
        run:  |
-         $STATUS = 'pass'     
+         $STATUS = 'pass'    
          echo "The status of application is: $STATUS" 
          if [ "$STATUS == 'pass' " ]; then
          echo "pass""         
