@@ -24,7 +24,7 @@ jobs:
      - name: Trigger the Workflow in auto gatling execution Repository2       
        run: |
         # Get the content of the file
-        content=$(Get-Content "C:\Users\annamalai.ponnusamy\Projects\applicationoutput.txt")
+        content=$(cat "C:\Users\annamalai.ponnusamy\Projects\applicationoutput.txt")
 
         # Do something with the content
         echo "Application output:"
