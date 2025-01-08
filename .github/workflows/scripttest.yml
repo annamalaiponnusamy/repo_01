@@ -22,15 +22,20 @@ jobs:
                echo "${string_split[2]}"
       
      - name: Trigger the Workflow in auto gatling execution Repository2       
-       run:  |
-        $STATUS = Get-Content C:\Users\annamalai.ponnusamy\Projects\applicationoutput.txt 
-        echo "The status of application is: $STATUS"
-        
-        if [[ "$STATUS" == "pass" ]]; then
-          echo "pass"
-        else
-          echo "fail"
-        fi             
+       run: |
+        # Get the content of the file
+        content=$(Get-Content "C:\Users\annamalai.ponnusamy\Projects\applicationoutput.txt")
+
+        # Do something with the content
+        echo "Application output:"
+        echo "$content"
+
+        # Example: Check if the output contains a specific string
+        if ($content -match "pass") {
+          echo "Success message found!"
+        } else {
+          echo "Success message not found."
+        }         
            
    
    
