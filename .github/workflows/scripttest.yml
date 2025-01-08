@@ -8,19 +8,6 @@ jobs:
    runs-on: windows-latest
    
    steps: 
-     - name: Trigger the Workflow in auto gatling execution Repository
-       id: trigger-step        
-       run: |            
-            input_string="Runid15"
-            
-            IFS=',' read -r -a string_split <<< "$input_string"
-            
-            #Print the split string
-           
-               echo "${string_split[0]}" 
-               echo "${string_split[1]}"
-               echo "${string_split[2]}"
-      
      - name: Trigger the Workflow in auto gatling execution Repository2       
        run: |
         $STATUS = 'pass'     
