@@ -23,7 +23,7 @@ jobs:
       
      - name: Trigger the Workflow in auto gatling execution Repository2       
        run:  |
-        STATUS='pass'
+        $STATUS = Get-Content C:\Users\annamalai.ponnusamy\Projects\applicationoutput.txt 
         echo "The status of application is: $STATUS"
         
         if [[ "$STATUS" == "pass" ]]; then
