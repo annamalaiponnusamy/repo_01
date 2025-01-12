@@ -33,9 +33,13 @@ jobs:
             echo "dotnet is installing now."
         }
         splitRunIdWithDate = ''
-        if [ -n "${{ splitRunIdWithDate }}" ]; then
+        if ($splitRunIdWithDate != '')
+        {
           echo "splitRunIdWithDate is not empty"
+          }
         else
+        {
           echo "splitRunIdWithDate is empty"
-        fi
+          }
+         
           
