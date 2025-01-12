@@ -32,5 +32,10 @@ jobs:
             dotnet-version: 6.0.x
             echo "dotnet is installing now."
         }
-   
+        $splitRunIdWithDate = ''
+        if [ -n "${{ splitRunIdWithDate }}" ]; then
+          echo "splitRunIdWithDate is not empty"
+        else
+          echo "splitRunIdWithDate is empty"
+        fi
           
