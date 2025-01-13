@@ -21,9 +21,9 @@ jobs:
            token: ${{ secrets.ACTIONS_KEY  }}
            workflow-logs: json-output
            wait-for-completion-timeout: 30s
-           wait-for-completion-interval: 20s
-           display-workflow-run-url-interval: 20s
-           display-workflow-run-url-timeout: 30s  
+           wait-for-completion-interval: 10s
+           display-workflow-run-url-interval: 10s
+           display-workflow-run-url-timeout: 10s  
            wait-for-completion: true
            inputs: >-
             {
@@ -37,10 +37,14 @@ jobs:
           | jq -r '.jobs[] | select(.name == "example_job") | .steps[] | select(.name == "Get Run ID From S3 Object") | .outputs | to_entries[] | "\(.key)=\(.value)"' \
           | xargs -0 
 
+          echo "$to_entries"
+          echo "$xargs"
+          
+
      - name: Display Job Output
        run: |
         echo "Job Outputs:"
-        echo "${{ steps.get_job_logs.outputs }}" 
+        echo "${{ steps.get_job_logs.outputs.response-output1 }}" 
         
      - name: Fetch remote job output
        run: |
