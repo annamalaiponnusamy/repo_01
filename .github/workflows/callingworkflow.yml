@@ -33,7 +33,7 @@ jobs:
        id: get_job_logs
        run: |
         curl -sH "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
-          https://api.github.com/repos/annamalaiponnusamy/repo_02/actions/runs/${{ github.run_id }}/jobs \
+          https://api.github.com/repos/annamalaiponnusamy/repo_02/actions/runs/${{ steps.trigger-step.outputs.workflow-id }}/jobs \
           | jq -r '.jobs[] | select(.name == "example_job") | .steps[] | select(.name == "Get Run ID From S3 Object") | .outputs | to_entries[] | "\(.key)=\(.value)"' \
           | xargs -0 
 
@@ -49,7 +49,7 @@ jobs:
      - name: Fetch remote job output
        run: |
            curl -H "Authorization: Bearer ${{ secrets.ACTIONS_KEY }}" \
-                 "https://api.github.com/repos/annamalaiponnusamy/repo_02/runs/${{github.run_id}}/jobs" \
+                 "https://api.github.com/repos/annamalaiponnusamy/repo_02/runs/${{ steps.trigger-step.outputs.workflow-id }}/jobs" \
                  | jq '.jobs[] | select(.name == "example_job") | .steps[] | .outputs'
     
  
