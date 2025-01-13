@@ -28,19 +28,11 @@ jobs:
             {
             "run-name": "12345"
             }
-     - name: Another step that can handle the result
-       id: trigger-step2
-       if: always()
+     - name: Fetch remote job output
        run: |
-            
-            echo "Another Workflow conclusion: ${{ steps.trigger-step.outputs.workflow-conclusion }}"            
-            logs=$(echo ${{ steps.trigger-step.outputs.workflow-logs}})
-            substring=$(echo "$logs" | grep -oP 'x.*?y')
-            echo "Extracted substring: $substring"
-            words=( $substring )
-            word=$(echo "${words[0]}")
-            cut="${word:1:-1}" 
-            echo $cut
+           curl -H "Authorization: Bearer ${{ secrets.ACTIONS_KEY }}" \
+            "https://api.github.com/annamalaiponnusamy/repo_02/runs/{{  github.run_id }}/jobs" \
+            | jq '.jobs[] | select(.name == "example_job") | .steps[] | .outputs'
     
  
           
