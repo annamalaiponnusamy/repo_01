@@ -32,14 +32,5 @@ jobs:
             dotnet-version: 6.0.x
             echo "dotnet is installing now."
         }
-        splitRunIdWithDate = ''
-        if ($splitRunIdWithDate != '')
-        {
-          echo "splitRunIdWithDate is not empty"
-          }
-        else
-        {
-          echo "splitRunIdWithDate is empty"
-          }
-         
+       
           
