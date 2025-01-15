@@ -39,7 +39,7 @@ jobs:
      - name: Parse JSON data
        run: |
         json_data=$(cat response.json)
-        node_value=$(echo "$json_data" | jq -r '.steps[] | .name')
+        node_value=$(echo "$json_data" | jq -r '.steps[].name')
         echo "Value of key_to_find: $node_value"    
 
      - name: Display extracted names
