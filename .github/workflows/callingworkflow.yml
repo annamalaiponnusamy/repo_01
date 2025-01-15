@@ -34,17 +34,16 @@ jobs:
        run: |
          curl -H "Authorization: Bearer ${{ secrets.ACTIONS_KEY }}" \
           https://api.github.com/repos/annamalaiponnusamy/repo_02/actions/runs/${{ steps.trigger-step.outputs.workflow-id }}/jobs \
-          | jq -r '.jobs[] | select(.name == "example_job") | .steps[] | select(.name == "Get Run ID From S3 Object") | .name ' \
-          | xargs -0 
+          | jq -r '.jobs[] | select(.name == "example_job") | .steps[] | .name' \
+          | xargs -n1 -I {} echo "Step Name: {}"
 
-          echo "$name"
-          echo "$xargs"
+          
           
 
      - name: Display Job Output
        run: |
-        echo "Job Outputs:"
-        echo "${{ steps.get_job_logs.outputs.response-output1 }}" 
+        echo "Step Names:"
+        echo "${{ steps.get_job_logs.outputs.step_names }}" 
         
      - name: Fetch remote job output
        run: |
