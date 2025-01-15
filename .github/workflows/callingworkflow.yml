@@ -35,7 +35,7 @@ jobs:
          curl -H "Authorization: Bearer ${{ secrets.ACTIONS_KEY }}" \
           https://api.github.com/repos/annamalaiponnusamy/repo_02/actions/runs/${{ steps.trigger-step.outputs.workflow-id }}/jobs \
           | jq -r '.jobs[] | select(.name == "example_job") | .steps[] | .name' \
-          | xargs -n1 -I {} echo "Step Name: {}"
+          | xargs -I {} echo "Processing: {}"
 
           
           
