@@ -32,22 +32,20 @@ jobs:
      - name: Get Job Logs
        id: get_job_logs
        run: |
-         curl -sH "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
-          https://api.github.com/repos/annamalaiponnusamy/repo_02/actions/runs/${{ steps.trigger-step.outputs.workflow-id }}/jobs \
-          | jq -r '.jobs[] | select(.name == "example_job") | .steps[] | .name' \
-           
-
+          curl -H "Authorization: Bearer ${{ secrets.ACTIONS_KEY }}" \
+          https://api.github.com/repos/annamalaiponnusamy/repo_02/actions/runs/${{ steps.trigger-step.outputs.workflow-id }}/jobs > response.json \
+          | jq '.jobs[] | .name' response.json > names.txt \
+            
                  
 
-     - name: Display Job Output
+     - name: Display extracted names
        run: |
-        echo "Step Names:"
-        echo "${{ steps.get_job_logs.outputs.step_names }}" 
+        cat names.txt
         
      - name: Fetch remote job output
        run: |
            curl -H "Authorization: Bearer ${{ secrets.ACTIONS_KEY }}" \
-                 "https://github.com/annamalaiponnusamy/repo_02/actions/runs/12744376241/job/35516167672" \
+                https://api.github.com/repos/annamalaiponnusamy/repo_02/actions/runs/${{ steps.trigger-step.outputs.workflow-id }}/jobs \
                  | jq '.jobs[] | select(.name == "example_job") | .steps[] | .outputs'
     
  
