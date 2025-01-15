@@ -32,13 +32,12 @@ jobs:
      - name: Get Job Logs
        id: get_job_logs
        run: |
-         curl -H "Authorization: Bearer ${{ secrets.ACTIONS_KEY }}" \
+         curl -sH "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
           https://api.github.com/repos/annamalaiponnusamy/repo_02/actions/runs/${{ steps.trigger-step.outputs.workflow-id }}/jobs \
           | jq -r '.jobs[] | select(.name == "example_job") | .steps[] | .name' \
-          | xargs -I {} echo "Processing: {}"
+          | xargs -n1 -I {} echo "::set-output name=step_names::{}"
 
-          
-          
+                 
 
      - name: Display Job Output
        run: |
