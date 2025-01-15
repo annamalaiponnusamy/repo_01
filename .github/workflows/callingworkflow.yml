@@ -33,8 +33,15 @@ jobs:
        id: get_job_logs
        run: |
           curl -H "Authorization: Bearer ${{ secrets.ACTIONS_KEY }}" \
-          https://api.github.com/repos/annamalaiponnusamy/repo_02/actions/runs/${{ steps.trigger-step.outputs.workflow-id }}/jobs > response.json \
-          | jq '.jobs[] | .name' response.json > names.txt \
+          https://api.github.com/repos/annamalaiponnusamy/repo_02/actions/runs/${{ steps.trigger-step.outputs.workflow-id }}   | jq . \
+         
+
+     - name: Find Step Names by Job Name
+       run: |
+        job_name="example_job"  # Replace with the target job name
+  
+        echo "Steps in job '$job_name':"
+        echo "${{ steps.get_job_logs.outputs | jq -r '.jobs[] | select(.name == "'"$job_name"'") | .steps[].name' }}"
             
                  
 
