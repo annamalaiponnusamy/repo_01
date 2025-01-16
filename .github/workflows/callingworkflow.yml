@@ -33,14 +33,12 @@ jobs:
        id: get_job_logs
        run: |
           curl -H "Authorization: Bearer ${{ secrets.ACTIONS_KEY }}" \
-          https://api.github.com/repos/annamalaiponnusamy/repo_02/actions/runs/${{ steps.trigger-step.outputs.workflow-id }}  > response.json
-         
+          https://api.github.com/repos/annamalaiponnusamy/repo_02/actions/runs/${{ steps.trigger-step.outputs.workflow-id }}/jobs \ 
+          | jq -r '.jobs[] | select(.name == "'example_job'") | .steps[].name' 
 
-     - name: Parse JSON data
-       run: |
-        json_data=$(cat response.json)
-        node_value=$(echo "$json_data" | jq -r '.steps[].name')
-        echo "Value of key_to_find: $node_value"    
+     - name: Display Step Names
+       run: |       
+        echo "${{ steps.get_job_logs.outputs.step_names }}"   
 
      - name: Display extracted names
        run: |
