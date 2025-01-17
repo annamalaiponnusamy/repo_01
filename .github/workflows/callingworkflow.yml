@@ -39,13 +39,9 @@ jobs:
 
      - name: Extract Step Names
        run: |
-        jq -r '.jobs[] | select(.name == "Generate output") | .steps[].name' < workflow_run.json | tee step_names.txt
+        jq -r '.jobs[] | select(.name == "Generate output") | select(.steps[] | .name | contains("Run echo "automationsuccess""))' < workflow_run.json | tee step_names.txt
 
-     - name: Display Step Names
-       run: |
-        echo "Step Names:"
-        cat step_names.txt 
-
+    
      - name: Display Step Names
        run: |
         name=$(cat step_names.txt)
