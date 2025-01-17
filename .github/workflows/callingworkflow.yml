@@ -34,13 +34,12 @@ jobs:
        run: |
         curl -H "Authorization: Bearer ${{ secrets.ACTIONS_KEY }}" \
         https://api.github.com/repos/annamalaiponnusamy/repo_02/actions/runs/${{ steps.trigger-step.outputs.workflow-id }}/jobs \
-        | shell_configuration = jq '.jobs[].steps[1].name' 
-        printf "\tConfiguration: $shell_configuration\n"
+        | jq '.jobs[].steps[1].name' | tee step_names.txt 
 
      - name: Display Step Names
        run: |
-        echo "Step Names:"
-        echo "${{ steps.get_job_names.outputs.step_names }}" 
+        name=$(cat step_names.txt)
+        echo "Step Names: $name"
         
      - name: Fetch remote job output
        run: |
