@@ -33,4 +33,24 @@ jobs:
             echo "dotnet is installing now."
         }
        
-          
+     - name: Run with Error Handling
+       run: |
+        @echo off
+        setlocal
+
+         
+        call :HandleError
+
+        dotnet --version        
+
+        echo Step 1 succeeded.
+
+        endlocal
+
+        goto :eof
+
+        :HandleError
+         uses: actions/setup-dotnet@v3
+         with:
+         dotnet-version: 6.0.x
+         echo "dotnet is installing now."   
