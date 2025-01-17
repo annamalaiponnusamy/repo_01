@@ -46,6 +46,15 @@ jobs:
        run: |
         name=$(cat step_names.txt)
         echo "Step Names: $name"
+        if [ "${{contains(name , 'automationsuccess')}}" ]; then
+            echo "response-output=pass" >> $GITHUB_OUTPUT  
+            echo "pass"
+            else
+            echo "response-output=fail" >> $GITHUB_OUTPUT
+             echo "fail"
+            fi 
+           
+               
         
      - name: Fetch remote job output
        run: |
