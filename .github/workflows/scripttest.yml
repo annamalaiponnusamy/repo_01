@@ -33,24 +33,11 @@ jobs:
             echo "dotnet is installing now."
         }
        
-     - name: Run with Error Handling
+     - name: Check for .NET Core
        run: |
-       
-        setlocal
-
-         
-        call :HandleError
-
-        dotnet --version        
-
-        echo Step 1 succeeded.
-
-        endlocal
-
-        goto :eof
-
-        :HandleError
-         uses: actions/setup-dotnet@v3
-         with:
-         dotnet-version: 6.0.x
-         echo "dotnet is installing now."   
+        dotnet --version 2>&1 | findstr /i "Microsoft" > nul
+        if %ERRORLEVEL% == 0 (
+          echo ".NET Core is installed."
+        ) else (
+          echo ".NET Core is not installed."
+        )
