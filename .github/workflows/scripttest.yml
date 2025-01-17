@@ -35,7 +35,7 @@ jobs:
        
      - name: Run with Error Handling
        run: |
-        @echo off
+       
         setlocal
 
          
