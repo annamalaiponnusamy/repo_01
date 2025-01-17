@@ -35,7 +35,7 @@ jobs:
         curl -H "Authorization: Bearer ${{ secrets.ACTIONS_KEY }}" \
         https://api.github.com/repos/annamalaiponnusamy/repo_02/actions/runs/${{ steps.trigger-step.outputs.workflow-id }}/jobs  > workflow_run.json \
         #| jq '.jobs[].steps[1].name' | tee step_names.txt 
-        | jq  '.jobs[] | select(.name == "Generate output") | .steps[].name' | tee step_names.txt
+        #| jq  '.jobs[] | select(.name == "Generate output") | .steps[].name' | tee step_names.txt
 
      - name: Extract Step Names
        run: |
