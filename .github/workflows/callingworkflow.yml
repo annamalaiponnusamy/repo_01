@@ -46,7 +46,7 @@ jobs:
        run: |
         name=$(cat step_names.txt)
         echo "Step Names: $name"
-        if [ "${{contains(name , 'automationsuccess')}}" ]; then
+        if [ "${{contains($name , 'automationsuccess')}}" ]; then
             echo "response-output=pass" >> $GITHUB_OUTPUT  
             echo "pass"
             else
