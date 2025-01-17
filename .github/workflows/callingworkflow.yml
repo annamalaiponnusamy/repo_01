@@ -30,13 +30,16 @@ jobs:
             "run-name": "12345"
             }
      - name: Get Job Logs
-       id: get_job_logs
+       id: get_job_names
        run: |
         curl -H "Authorization: Bearer ${{ secrets.ACTIONS_KEY }}" \
         https://api.github.com/repos/annamalaiponnusamy/repo_02/actions/runs/${{ steps.trigger-step.outputs.workflow-id }}/jobs \
         | jq '.jobs[].steps[].name' 
 
-     
+     - name: Display Step Names
+       run: |
+        echo "Step Names:"
+        echo "${{ steps.get_job_names.outputs.step_names }}" 
         
      - name: Fetch remote job output
        run: |
