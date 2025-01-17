@@ -46,7 +46,7 @@ jobs:
        run: |
         name=$(cat step_names.txt)
         echo "Step Names: $name"
-            if [[ "${name}" == *"automationsuccess"* ]]; then
+            if [[ "${name}" == *"automationsuccess1"* ]]; then
             echo "response-output=pass" >> $GITHUB_OUTPUT  
             echo "pass"
             else
