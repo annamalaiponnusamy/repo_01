@@ -34,12 +34,8 @@ jobs:
        run: |
           curl -H "Authorization: Bearer ${{ secrets.ACTIONS_KEY }}" \
           -X POST \
-          "https://api.github.com/repos/annamalaiponnusamy/repo_02/actions/runs/${{ steps.trigger-step.outputs.workflow-id }}/jobs" \ 
-          -d '{"data": "Job data"}' 
-
-     - name: Display Step Names
-       run: |       
-        echo "${{ steps.get_job_logs.outputs.step_names }}"   
+          https://api.github.com/repos/annamalaiponnusamy/repo_02/actions/runs/${{ steps.trigger-step.outputs.workflow-id }}/jobs \ 
+       
 
      - name: Display extracted names
        run: |
