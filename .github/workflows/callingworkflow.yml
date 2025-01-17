@@ -32,10 +32,9 @@ jobs:
      - name: Get Job Logs
        id: get_job_logs
        run: |
-          curl -H "Authorization: Bearer ${{ secrets.ACTIONS_KEY }}" \
-         
-          "https://api.github.com/repos/annamalaiponnusamy/repo_02/actions/runs/${{ steps.trigger-step.outputs.workflow-id }}/jobs" \ 
-          | jq '.jobs[].steps[].name' 
+         curl -H "Authorization: Bearer ${{ secrets.ACTIONS_KEY }}" \
+         "https://api.github.com/repos/annamalaiponnusamy/repo_02/actions/runs/${{ steps.trigger-step.outputs.workflow-id }}/jobs" \ 
+         | jq '.jobs[].steps[].name' 
 
      - name: Display extracted names
        run: |
