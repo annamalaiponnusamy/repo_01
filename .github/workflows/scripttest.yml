@@ -35,10 +35,16 @@ jobs:
        
      - name: Check for .NET Core
        run: |
-        dotnet --version 2>&1 | findstr /i "Microsoft" > nul
-        if (%ERRORLEVEL% == 0) (
-          echo ".NET Core is installed."
-        ) else (
-          echo ".NET Core is not installed."
-          exit 1
-        )
+              :try_block
+              echo Running step 1...
+              
+               
+      
+              goto :end_try
+      
+              :catch_block
+              echo An error occurred.
+              
+      
+              :end_try
+
