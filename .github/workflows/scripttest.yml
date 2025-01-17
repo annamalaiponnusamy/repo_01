@@ -36,8 +36,8 @@ jobs:
      - name: Check for .NET Core
        run: |
         dotnet --version 2>&1 | findstr /i "Microsoft" > nul
-        if %ERRORLEVEL% == 0 (
+        if (%ERRORLEVEL% == 0) {
           echo ".NET Core is installed."
-        ) else (
+        } else {
           echo ".NET Core is not installed."
-        )
+        }
