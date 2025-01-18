@@ -1,0 +1,44 @@
+name: My Workflow
+
+on:
+  workflow_dispatch:
+
+jobs:
+  job_loop:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Loop through jobs
+      run: |
+        counter=0
+        while [ $counter -lt 3 ]; do 
+          echo "Running job $counter"
+          # Trigger another job with the counter as an input
+          echo "::set-output name=job_counter::$counter"
+          jobs.run_sub_job << EOF
+          name: Run Sub Job
+
+          runs-on: ubuntu-latest
+
+          inputs:
+            counter: ${{ steps.Loop_through_jobs.outputs.job_counter }} 
+
+          steps:
+          - name: Log counter
+            run: echo "Sub Job Counter: ${{ inputs.counter }}" 
+          EOF
+          jobs.run_sub_job
+          counter=$((counter+1))
+        done
+
+jobs:
+  run_sub_job:
+    needs: job_loop
+    runs-on: ubuntu-latest
+    inputs:
+      counter: 
+    steps:
+    - name: Log counter
+      run: echo "Sub Job Counter: ${{ inputs.counter }}"
