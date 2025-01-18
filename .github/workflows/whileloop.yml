@@ -40,4 +40,4 @@ jobs:
       
     steps:
     - name: Log counter
-      run: echo "Sub Job Counter:${{ job_loop.inputs.counter }}"
+      run: echo "Sub Job Counter:"
