@@ -37,8 +37,7 @@ jobs:
   run_sub_job:
     needs: job_loop
     runs-on: ubuntu-latest
-    inputs:
-      counter: 
+      
     steps:
     - name: Log counter
-      run: echo "Sub Job Counter: ${{ inputs.counter }}"
+      run: echo "Sub Job Counter:${{ job_loop.inputs.counter }}"
