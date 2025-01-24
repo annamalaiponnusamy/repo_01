@@ -7,9 +7,7 @@ on:
     description: 'The global rund for gatling report'
     required: false
     type: string
-    
-  repository_dispatch:
-   
+       
 
 jobs:
   job1:
