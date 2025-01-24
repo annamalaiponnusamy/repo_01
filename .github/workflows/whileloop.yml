@@ -1,13 +1,13 @@
 name: windows script check
 
 on:
-  workflow_call:
-  workflow_dispatch:
-   inputs:
-    global-runid:
-    description: 'The global rund for gatling report'
-    required: false
-    type: string
+  
+    workflow_dispatch:
+     inputs:
+      global-runid:
+      description: 'The global rund for gatling report'
+      required: false
+      type: string
        
 
 jobs:
