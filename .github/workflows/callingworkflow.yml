@@ -1,23 +1,42 @@
 
-name: windows script check
+name: windows scrip Workflow
 
 on:
-    workflow_dispatch:
+  workflow_call:
+    # Map the workflow outputs to job outputs
     
+  workflow_dispatch:
+    inputs:
+      run-name:
+        description: 'The distinct run name used to retrieve the run ID. Defaults to the workflow name'
+        type: string
+        required: false
 
 jobs:
  example_job:
     name: Generate output
-    runs-on: windows-latest 
+    runs-on: ubuntu-latest 
     outputs:
      jobclusterstatus: ${{ steps.s3run.outputs.response-output1 }}
     steps:
-             - name: Display Step Names
-               run: |
-                 runid = ${{ inputs.global-runid }} 
-                 if ([string]::IsNullOrEmpty($runid)) {
-                  $runid = "f"
-                 }     
-                  echo "runid"
+      - id: step1
+        run: |
+          echo "${{inputs.run-name}}"
+           
+      - name: Get Run ID From S3 Object
+        id: s3run
+        run: |
+           echo "response-output1=pass" >> $GITHUB_OUTPUT 
+           echo "::set-output name=my-step-output::Some output value" 
+
+      - name: Check if another variable is empty
+        run: |
+               if [ -z "${{ steps.s3run.outputs.response-output1 }}" ]; then
+                 echo "Variable is empty"
+                 exit 1
+               else
+                 echo "Variable is not empty"
+               fi
+               
                      
     
