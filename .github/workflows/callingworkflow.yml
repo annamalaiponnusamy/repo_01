@@ -1,42 +1,62 @@
-
-name: windows scrip Workflow
+name: Call a reusable workflow and use its outputs
 
 on:
-  workflow_call:
-    # Map the workflow outputs to job outputs 
-    
   workflow_dispatch:
-    inputs:
-      run-name:
-        description: 'The distinct run name used to retrieve the run ID. Defaults to the workflow name'
-        type: string
-        required: false
+  repository_dispatch:
+   
 
 jobs:
- example_job:
-    name: Generate output
-    runs-on: ubuntu-latest 
-    outputs:
-     jobclusterstatus: ${{ steps.s3run.outputs.response-output1 }}
-    steps:
-      - id: step1
-        run: |
-          echo "${{inputs.run-name}}"
-           
-      - name: Get Run ID From S3 Object
-        id: s3run
-        run: |
-           echo "response-output1=pass" >> $GITHUB_OUTPUT 
-           echo "::set-output name=my-step-output::Some output value" 
-
-      - name: Check if another variable is empty
-        run: |
-               if [ -z "${{ steps.s3run.outputs.response-output1 }}" ]; then
-                 echo "Variable is empty"
-                 exit 1
-               else
-                 echo "Variable is not empty"
-               fi
-               
-                     
+  job1:
+   runs-on: ubuntu-latest
+   outputs:
+      output1: ${{ steps.trigger-step2.outputs.output1 }}
+   steps: 
+   
+     - name: Trigger the Workflow in auto gatling execution Repository
+       id: trigger-step
+       uses: the-actions-org/workflow-dispatch@v4 
+       with:
+           workflow: Another Workflow
+           repo: annamalaiponnusamy/repo_02
+           token: ${{ secrets.ACTIONS_KEY  }}
+           workflow-logs: json-output
+           wait-for-completion-timeout: 30s
+           wait-for-completion-interval: 10s
+           display-workflow-run-url-interval: 10s
+           display-workflow-run-url-timeout: 10s  
+           wait-for-completion: true
+           inputs: >-
+            {
+            "run-name": "12345"
+            }
+     - name: Get Job Logs
+       id: get_job_names
+       run: |
+        curl -H "Authorization: Bearer ${{ secrets.ACTIONS_KEY }}" \
+        https://api.github.com/repos/annamalaiponnusamy/repo_02/actions/runs/${{ steps.trigger-step.outputs.workflow-id }}/jobs  > workflow_run.json \
+        #| jq '.jobs[].steps[1].name' | tee step_names.txt 
+        #| jq  '.jobs[] | select(.name == "Generate output") | .steps[].name' | tee step_names.txt
+     - name: Extract Step Names
+       run: |
+        jq -r '.jobs[] | select(.name == "Generate output") | .steps[].name' < workflow_run.json | tee step_names.txt
     
+     - name: Display Step Names
+       run: |
+        name=$(cat step_names.txt)
+        IFS=' ' read -r -a splitRunIdWithDate <<< "$name"
+        echo "Run ID: ${splitRunIdWithDate[2]}" 
+        echo "Step Names: $name"
+            if [[ "${name}" == *"automationsuccess1"* ]]; then
+            echo "response-output=pass" >> $GITHUB_OUTPUT  
+            echo "pass"
+            else
+            echo "response-output=fail" >> $GITHUB_OUTPUT
+             echo "fail"
+            fi 
+                
+        
+     - name: Fetch remote job output
+       run: |
+           curl -H "Authorization: Bearer ${{ secrets.ACTIONS_KEY }}" \
+                https://api.github.com/repos/annamalaiponnusamy/repo_02/actions/runs/${{ steps.trigger-step.outputs.workflow-id }}/jobs \
+                 | jq '.jobs[] | select(.name == "example_job") | .steps[] | .outputs'
