@@ -45,6 +45,8 @@ jobs:
      - name: Display Step Names
        run: |
         name=$(cat step_names.txt)
+        IFS=' ' read -r -a splitRunIdWithDate <<< "$name"
+        echo "Run ID: ${splitRunIdWithDate[3]}" 
         echo "Step Names: $name"
             if [[ "${name}" == *"automationsuccess1"* ]]; then
             echo "response-output=pass" >> $GITHUB_OUTPUT  
@@ -53,26 +55,7 @@ jobs:
             echo "response-output=fail" >> $GITHUB_OUTPUT
              echo "fail"
             fi 
-     
-            try {
-                dotnet --version
-            }
-            catch{
-              echo "dotnet command failed."
-              uses: actions/setup-dotnet@v3
-              with:
-              dotnet-version: 8.0.x
-              echo "dotnet is installing now."
-            }
-              if ($LASTEXITCODE -eq 0) {
-                echo "dotnet is installed."
-              } 
-              else {
-                  uses: actions/setup-dotnet@v3
-                  with:
-                  dotnet-version: 8.0.x
-                  echo "dotnet is installing now."
-              }           
+                
         
      - name: Fetch remote job output
        run: |
