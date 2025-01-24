@@ -2,6 +2,12 @@ name: windows script check
 
 on:
   workflow_dispatch:
+   inputs:
+    global-runid:
+    description: 'The global rund for gatling report'
+    required: false
+    type: string
+    
   repository_dispatch:
    
 
@@ -12,31 +18,14 @@ jobs:
       output1: ${{ steps.trigger-step2.outputs.output1 }}
    steps: 
    
-     - name: Trigger the Workflow in auto gatling execution Repository
-       id: trigger-step
-       uses: the-actions-org/workflow-dispatch@v4 
-       with:
-           workflow: Another Workflow
-           repo: annamalaiponnusamy/repo_02
-           token: ${{ secrets.ACTIONS_KEY  }}
-           workflow-logs: json-output
-           wait-for-completion-timeout: 30s
-           wait-for-completion-interval: 10s
-           display-workflow-run-url-interval: 10s
-           display-workflow-run-url-timeout: 10s  
-           wait-for-completion: true
-           inputs: >-
-            {
-            "run-name": "12345"
-            }     
     
      - name: Display Step Names
        run: |
-        name = ""
-        if ([string]::IsNullOrEmpty($runid)) {
-         $runid = "f"
-        }
-        echo "runid"
+         runid = ${{ inputs.global-runid }} 
+         if ([string]::IsNullOrEmpty($runid)) {
+          $runid = "f"
+         }     
+          echo "runid"
         
                 
         
