@@ -46,7 +46,7 @@ jobs:
        run: |
         name=$(cat step_names.txt)
         IFS=' ' read -r -a splitRunIdWithDate <<< "$name"
-        echo "Run ID: ${splitRunIdWithDate[3]}" 
+        echo "Run ID: ${splitRunIdWithDate[2]}" 
         echo "Step Names: $name"
             if [[ "${name}" == *"automationsuccess1"* ]]; then
             echo "response-output=pass" >> $GITHUB_OUTPUT  
