@@ -1,7 +1,11 @@
 name: windows script check
 
 on:
-  
+    workflow_call:
+    inputs:
+        global-runid:
+        required: false
+        type: string
     workflow_dispatch:
      inputs:
       global-runid:
