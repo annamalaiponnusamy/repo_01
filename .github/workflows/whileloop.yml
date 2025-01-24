@@ -30,6 +30,7 @@ jobs:
           $runid = "f"
          }     
          echo "$runid"
+         Write-Output "Run ID: $runid"
                
                      
     
