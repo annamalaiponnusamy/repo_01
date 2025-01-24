@@ -1,29 +1,44 @@
-name: My Workflow
+name: windows script check
 
 on:
   workflow_dispatch:
+  repository_dispatch:
+   
 
 jobs:
-  job_loop:
-    runs-on: ubuntu-latest
-    steps:
-    - name: Checkout code
-      uses: actions/checkout@v3
-
-    - name: Loop through jobs
-      run: |
-        counter=0
-        while [ $counter -lt 3 ]; do 
-          echo "Running job $counter"
-          # Trigger another job with the counter as an input
-          echo "::set-output name=job_counter::$counter"
-          jobs.run_sub_job << EOF       
-        done
-
- 
-  run_sub_job:
-    needs: job_loop
-    runs-on: ubuntu-latest
-    steps:
-    - name: Log counter
-      run: echo "Sub Job Counter:"
+  job1:
+   runs-on: windows-latest
+   outputs:
+      output1: ${{ steps.trigger-step2.outputs.output1 }}
+   steps: 
+   
+     - name: Trigger the Workflow in auto gatling execution Repository
+       id: trigger-step
+       uses: the-actions-org/workflow-dispatch@v4 
+       with:
+           workflow: Another Workflow
+           repo: annamalaiponnusamy/repo_02
+           token: ${{ secrets.ACTIONS_KEY  }}
+           workflow-logs: json-output
+           wait-for-completion-timeout: 30s
+           wait-for-completion-interval: 10s
+           display-workflow-run-url-interval: 10s
+           display-workflow-run-url-timeout: 10s  
+           wait-for-completion: true
+           inputs: >-
+            {
+            "run-name": "12345"
+            }     
+    
+     - name: Display Step Names
+       run: |
+        name = ""
+        if ([string]::IsNullOrEmpty($runid)) {
+         $runid = "f"
+        }
+        echo "runid"
+        
+                
+        
+     
+          
