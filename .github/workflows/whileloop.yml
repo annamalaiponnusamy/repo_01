@@ -15,7 +15,7 @@ on:
 jobs:
  example_job:
     name: Generate output
-    runs-on: ubuntu-latest 
+    runs-on: windows-latest 
     outputs:
      jobclusterstatus: ${{ steps.s3run.outputs.response-output1 }}
     steps:
@@ -23,20 +23,13 @@ jobs:
         run: |
           echo "${{inputs.run-name}}"
            
-      - name: Get Run ID From S3 Object
-        id: s3run
+      - name: Display Step Names
         run: |
-           echo "response-output1=pass" >> $GITHUB_OUTPUT 
-           echo "::set-output name=my-step-output::Some output value" 
-
-      - name: Check if another variable is empty
-        run: |
-               if [ -z "${{ steps.s3run.outputs.response-output1 }}" ]; then
-                 echo "Variable is empty"
-                 exit 1
-               else
-                 echo "Variable is not empty"
-               fi
+         runid = ${{ inputs.run-name }} 
+         if ([string]::IsNullOrEmpty($runid)) {
+          $runid = "f"
+         }     
+          echo "runid"
                
                      
     
