@@ -52,8 +52,13 @@ jobs:
             else
             echo "response-output=fail" >> $GITHUB_OUTPUT
              echo "fail"
-            fi 
-                
+            fi
+            
+            line_value=$(sed -n '2p' step_names.txt)
+
+            # Print the value
+            echo "The value of the 5th line is: $line_value"
+            
         
      - name: Fetch remote job output
        run: |
