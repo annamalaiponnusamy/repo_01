@@ -58,10 +58,10 @@ jobs:
 
      - name: Filter name from Step Names
        run: |
-            stepName=$(sed -n '3p' step_names.txt)
+            stepName=$(sed -n '2p' step_names.txt)
             echo "The value of the 5th line is: $stepName"
             # Print the value
-            IFS=' ' read -r -a splitStepName <<< "$stepName"
+            IFS=',' read -r -a splitStepName <<< "$stepName"
             echo "Run ID: ${splitStepName[2]}"
             echo "response-output=${splitStepName[2]}" >> $GITHUB_OUTPUT
             
