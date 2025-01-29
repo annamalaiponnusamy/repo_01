@@ -42,7 +42,8 @@ jobs:
     
      - name: Display Step Names
        run: |
-        name=$(cat step_names.txt)
+        tr -d '"' < step_names.txt > step_names_no_quotes.txt
+        name=$(cat step_names_no_quotes.txt)
         IFS=' ' read -r -a splitRunIdWithDate <<< "$name"
         echo "Run ID: ${splitRunIdWithDate[2]}" 
         echo "Step Names: $name"
@@ -58,7 +59,7 @@ jobs:
 
      - name: Filter name from Step Names
        run: |
-            stepName=$(sed -n '2p' step_names.txt)
+            stepName=$(sed -n '2p' step_names_no_quotes.txt)
             echo "The value of the 5th line is: $stepName"
             # Print the value
             IFS=',' read -r -a splitStepName <<< "$stepName"
