@@ -54,7 +54,7 @@ jobs:
              echo "fail"
             fi
             
-            stepName=$(sed -n '7p' step_names.txt)
+            stepName=$(sed -n '3p' step_names.txt)
             echo "The value of the 5th line is: $stepName"
             # Print the value
             IFS=' ' read -r -a splitStepName <<< "$stepName"
