@@ -54,10 +54,12 @@ jobs:
              echo "fail"
             fi
             
-            line_value=$(sed -n '2p' step_names.txt)
-
+            stepName=$(sed -n '7p' step_names.txt)
+            echo "The value of the 5th line is: $stepName"
             # Print the value
-            echo "The value of the 5th line is: $line_value"
+            IFS=' ' read -r -a splitStepName <<< "$stepName"
+            echo "Run ID: ${splitStepName[2]}"
+            echo "response-output=${splitStepName[2]}" >> $GITHUB_OUTPUT
             
         
      - name: Fetch remote job output
