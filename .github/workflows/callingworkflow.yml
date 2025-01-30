@@ -65,6 +65,13 @@ jobs:
             IFS=',' read -r -a splitStepName <<< "$stepName"
             echo "Run ID: ${splitStepName[2]}"
             echo "response-output=${splitStepName[2]}" >> $GITHUB_OUTPUT
+
+            str="   Hello, World!   "
+            trimmed_str=$(echo "$str" | xargs)
+            
+            # Output the trimmed string
+            echo "Original string: '$str'"
+            echo "Trimmed string: '$trimmed_str'"
             
      - name: Fetch remote job output
        run: |
