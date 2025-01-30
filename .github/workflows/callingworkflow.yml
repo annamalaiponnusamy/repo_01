@@ -72,6 +72,7 @@ jobs:
             # Output the trimmed string
             echo "Original string: '$str'"
             echo "Trimmed string: '$trimmed_str'"
+            echo "IsRecording: ${trimmed_str}"
             
      - name: Fetch remote job output
        run: |
