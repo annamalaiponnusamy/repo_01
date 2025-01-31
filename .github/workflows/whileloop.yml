@@ -31,6 +31,13 @@ jobs:
          }     
          echo "$runid"
          Write-Output "Run ID: $runid"
+
+          $filePath = "path\to\your\file.txt"
+          if (Test-Path -Path $filePath) {
+            echo "File exists: $filePath"
+          } else {
+            echo "File does not exist: $filePath"
+          }
                
                      
     
