@@ -32,11 +32,11 @@ jobs:
          echo "$runid"
          Write-Output "Run ID: $runid"
 
-          $filePath = "path\to\your\file.txt"
-          if (Test-Path -Path $filePath) {
-            echo "File exists: $filePath"
+          
+          if (Test-Path -Path file.txt) {
+            echo "File exists:"
           } else {
-            echo "File does not exist: $filePath"
+            echo "File does not exist:"
           }
                
                      
