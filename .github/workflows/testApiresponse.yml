@@ -1,1 +1,26 @@
+name: Access Shared Folder
 
+on: [push]
+
+jobs:
+  access-shared-folder:
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Map network drive
+        run: |
+          $username = "ucn\annamalai.ponnusamy"
+          $password = "Dhar@9876543211$"
+          $networkPath = "\\\\PFORA-QAWSP01\\WLT_OneClick"
+          $driveLetter = "Z:"
+
+          net use $driveLetter $networkPath /user:$username $password
+        shell: pwsh
+
+      - name: Verify mapped drive
+        run: |
+          dir Z:
+        shell: cmd
