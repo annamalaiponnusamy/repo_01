@@ -14,7 +14,7 @@ jobs:
         run: |
           $username = "ucn\annamalai.ponnusamy"
           $password = "Dhar@9876543211$"
-          $networkPath = "\\\\PFORA-QAWSP01\\WLT_OneClick"
+          $networkPath = "\\\\PFORA-QAWSP03\\WLT_OneClick"
           $driveLetter = "Z:"
 
           net use $driveLetter $networkPath /user:$username $password
