@@ -32,19 +32,13 @@ jobs:
             dotnet-version: 6.0.x
             echo "dotnet is installing now."
         }
-       
-     - name: Check for .NET Core
+     - name: Run application with secrets
        run: |
-              :try_block
-              echo Running step 1...
+        echo "Service User Name: $ACTIONS_KEY"
+       
+       env:
+        ACTIONS_KEY: ${{ secrets.ACTIONS_KEY }}
+         
+     
               
-               
-      
-              goto :end_try
-      
-              :catch_block
-              echo An error occurred.
-              
-      
-              :end_try
 
