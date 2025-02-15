@@ -34,10 +34,11 @@ jobs:
         }
      - name: Run application with secrets
        run: |
-        echo "Service User Name: $ACTIONS_KEY"
-       
        env:
         ACTIONS_KEY: ${{ secrets.ACTIONS_KEY }}
+        echo "Service User Name: $ACTIONS_KEY"
+       
+       
          
      
               
