@@ -1,6 +1,9 @@
 name: Access Shared Folder
 
-on: [push]
+on:
+  push:
+    branches:
+      - main
 
 jobs:
   access-shared-folder:
