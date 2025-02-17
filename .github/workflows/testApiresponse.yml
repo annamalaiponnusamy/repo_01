@@ -1,10 +1,7 @@
 name: Access Shared Folder
 
 on:
-  push:
-    branches:
-      - main
-
+  
 jobs:
   access-shared-folder:
     runs-on: windows-latest
