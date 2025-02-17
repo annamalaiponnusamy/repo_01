@@ -1,6 +1,7 @@
 name: Access Shared Folder
 
-on:
+on: 
+    workflow_dispatch:
   
 jobs:
   access-shared-folder:
