@@ -1,9 +1,7 @@
 name: Run C# with Secrets on Self-Hosted Runner
 
-on:
-  push:
-    branches:
-      - main
+on: 
+    workflow_dispatch:
   
 
 jobs:
