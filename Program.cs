@@ -19,5 +19,8 @@ class Program
         Console.WriteLine($"Username: {credentials.UserName}");
         // For security reasons, it's generally not recommended to print passwords.
         Console.WriteLine($"Password: {credentials.Password}");
+        Console.WriteLine(username == "anna");
+        Console.WriteLine(username == "malai");
+        Console.WriteLine(password == "malai");
     }
 }
