@@ -1,43 +1,32 @@
-
-name: windows script check
+name: Run C# with Secrets on Self-Hosted Runner
 
 on:
-  workflow_call:
-    # Map the workflow outputs to job outputs
-    
-  workflow_dispatch:
-    inputs:
-      run-name:
-        description: 'The distinct run name used to retrieve the run ID. Defaults to the workflow name'
-        type: string
-        required: false
+  push:
+    branches:
+      - main
+  
 
 jobs:
- example_job:
-    name: Generate output
-    runs-on: windows-latest 
-    outputs:
-     jobclusterstatus: ${{ steps.s3run.outputs.response-output1 }}
-    steps:
-      - id: step1
-        run: |
-          echo "${{inputs.run-name}}"
-           
-      - name: Display Step Names
-        run: |
-         $runid = "${{ inputs.run-name }}" 
-         if ([string]::IsNullOrEmpty($runid)) {
-          $runid = "f"
-         }     
-         echo "$runid"
-         Write-Output "Run ID: $runid"
+  build:
+    runs-on: self-hosted
 
-          
-          if (Test-Path -Path file.txt) {
-            echo "File exists:"
-          } else {
-            echo "File does not exist:"
-          }
-               
-                     
-    
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Set up .NET
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: '6.0.x' # or your desired .NET version
+
+    - name: Restore dependencies
+      run: dotnet restore
+
+    - name: Build
+      run: dotnet build --configuration Release
+
+    - name: Run C# application with secrets
+      run: dotnet run --project ./GithubSecretTest
+      env:
+        GITHUB_SECRET_USERNAME: ${{ secrets.GITHUB_SECRET_USERNAME }}
+        GITHUB_SECRET_PASSWORD: ${{ secrets.GITHUB_SECRET_PASSWORD }}
