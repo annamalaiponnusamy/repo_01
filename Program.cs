@@ -5,8 +5,8 @@ class Program
 {
     static void Main(string[] args)
     {
-        string username = Environment.GetEnvironmentVariable("GITHUB_SECRET_USERNAME");
-        string password = Environment.GetEnvironmentVariable("GITHUB_SECRET_PASSWORD");
+        string username = Environment.GetEnvironmentVariable("SECRET_USERNAME");
+        string password = Environment.GetEnvironmentVariable("SECRET_PASSWORD");
 
         if (username == null || password == null)
         {
