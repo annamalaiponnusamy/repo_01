@@ -37,7 +37,7 @@ jobs:
        id: get_job_names1
        shell: sh
        run: |
-        #curl -H "Authorization: Bearer ${{ secrets.ACTIONS_KEY }}" \
+        #curl -H "Authorization: Bearer ${{ secrets.ASPF_CLUSTER_CLEANER }}" \
         JOBS_URL="https://api.github.com/repos/annamalaiponnusamy/repo_02/actions/runs/${{ steps.trigger-step.outputs.workflow-id }}/jobs"
         JOBS_RESPONSE=$(curl -s -H "Authorization: token ${{ secrets.ACTIONS_KEY }}" $JOBS_URL)
         #  https://api.github.com/repos/annamalaiponnusamy/repo_02/actions/runs/${{ steps.trigger-step.outputs.workflow-id }}/jobs  > workflow_run.json \
@@ -48,7 +48,7 @@ jobs:
         echo "Fetching logs for job ID $JOB_ID ..."
         LOGS_URL="https://api.github.com/repos/annamalaiponnusamy/repo_02/actions/jobs/37448410242/logs"
         
-        LOGS_RESPONSE=$(curl -s -H "Authorization: token  ${{ secrets.ACTIONS_KEY }}" $LOGS_URL)
+        LOGS_RESPONSE=$(curl -s -H "Authorization: token  ${{ secrets.ASPF_CLUSTER_CLEANER }}" $LOGS_URL)
         #curl -s -H "Authorization:  Bearer ${{ secrets.ACTIONS_KEY }}" $LOGS_URL -o job_$JOB_ID.log
         echo "Logs for job ID $JOB_ID saved to job_$JOB_ID.log"
 
