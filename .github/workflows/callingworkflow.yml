@@ -44,6 +44,15 @@ jobs:
         echo "Fetching logs for job ID $JOB_ID..."
         curl -s -H "Authorization:  Bearer ${{ secrets.ACTIONS_KEY }}" $LOGS_URL -o job_$JOB_ID.log
         echo "Logs for job ID $JOB_ID saved to job_$JOB_ID.log"
+
+        # *** DEBUGGING - Verify file existence and content ***
+        echo "--- Checking if job_$JOB_ID.log exists ---"
+        ls -l job_$JOB_ID.log || echo "job_$JOB_ID.log does NOT exist" # Check if file exists, if not, say so
+        echo "--- Content of job_$JOB_ID.log ---"
+        cat job_$JOB_ID.log || echo "job_$JOB_ID.log is EMPTY or cannot be read" # Print file content, if empty or not readable, say so
+        echo "--- End of job_$JOB_ID.log content ---"
+        # *** END DEBUGGING ***
+
         OUTPUT_VARIABLE=$(jq -r '.jobclusterstatus' job_$JOB_ID.log)
         echo "Output variable value: $OUTPUT_VARIABLE"
  
