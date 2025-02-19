@@ -32,6 +32,7 @@ jobs:
 
      - name: Get Job Logs by Output
        id: get_job_names1
+       shell: sh
        run: |
         #curl -H "Authorization: Bearer ${{ secrets.ACTIONS_KEY }}" \
         JOBS_URL="https://api.github.com/repos/annamalaiponnusamy/repo_02/actions/runs/${{ steps.trigger-step.outputs.workflow-id }}/jobs"
@@ -42,7 +43,7 @@ jobs:
          
         JOB_ID=$(echo $JOBS_RESPONSE | jq -r --arg JOB_NAME "example_job" '.jobs[] | select(.name == $JOB_NAME) | .id')
         echo "Fetching logs for job ID $JOB_ID ..."
-        LOGS_URL="https://api.github.com/repos/annamalaiponnusamy/repo_02/actions/jobs/{{$JOB_ID}}/logs"
+        LOGS_URL="https://api.github.com/repos/annamalaiponnusamy/repo_02/actions/jobs/$JOB_ID/logs"
      
         LOGS_RESPONSE=$(curl -s -H "Authorization: Bearer ${{ secrets.ACTIONS_KEY }}" $LOGS_URL)
         #curl -s -H "Authorization:  Bearer ${{ secrets.ACTIONS_KEY }}" $LOGS_URL -o job_$JOB_ID.log
