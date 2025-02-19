@@ -41,7 +41,7 @@ jobs:
         #| jq  '.jobs[] | select(.name == "Generate output") | .steps[].name' | tee step_names.txt
         JOB_NAME="example_job" 
         JOB_ID=$(echo $JOBS_RESPONSE | jq -r --arg JOB_NAME "$JOB_NAME" '.jobs[] | select(.name == $JOB_NAME) | .id')
-        LOGS_URL="https://api.github.com/repos/annamalaiponnusamy/repo_02/actions/jobs/${{JOB_ID}}/logs"
+        LOGS_URL="https://api.github.com/repos/annamalaiponnusamy/repo_02/actions/jobs/{{$JOB_ID}}/logs"
         echo "Fetching logs for job ID $JOB_ID..."
         LOGS_RESPONSE=$(curl -s -H "Authorization: Bearer ${{ secrets.ACTIONS_KEY }}" $LOGS_URL)
         #curl -s -H "Authorization:  Bearer ${{ secrets.ACTIONS_KEY }}" $LOGS_URL -o job_$JOB_ID.log
