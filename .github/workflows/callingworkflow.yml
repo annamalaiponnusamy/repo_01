@@ -42,8 +42,21 @@ jobs:
         JOB_ID=$(echo $JOBS_RESPONSE | jq -r --arg JOB_NAME "Generate output" '.jobs[] | select(.name == $JOB_NAME) | .id')
         LOGS_URL="https://api.github.com/repos/annamalaiponnusamy/repo_02/actions/jobs/$JOB_ID/logs"
         echo "Fetching logs for job ID $JOB_ID..."
-        curl -s -H "Authorization:  Bearer ${{ secrets.ACTIONS_KEY }}" $LOGS_URL -o job_$JOB_ID.log
+        LOGS_RESPONSE=$(curl -s -H "Authorization: Bearer ${{ secrets.ACTIONS_KEY }}" $LOGS_URL)
+        #curl -s -H "Authorization:  Bearer ${{ secrets.ACTIONS_KEY }}" $LOGS_URL -o job_$JOB_ID.log
         echo "Logs for job ID $JOB_ID saved to job_$JOB_ID.log"
+
+        echo "$LOGS_RESPONSE" > job_$JOB_ID.log
+
+        # Extract step output variable value from logs
+        STEP_OUTPUT=$(echo "$LOGS_RESPONSE" | jq -r --arg STEP_NAME "OutputStep" '.steps[] | select(.name == OutputStep) | .output')
+
+        if [ -n "$STEP_OUTPUT" ]; then
+          echo "Output for step '$STEP_NAME': $STEP_OUTPUT"
+        else
+          echo "No output found for step '$STEP_NAME' in job '$JOB_NAME'."
+        fi
+
 
         # *** DEBUGGING - Verify file existence and content ***
         echo "--- Checking if job_$JOB_ID.log exists ---"
