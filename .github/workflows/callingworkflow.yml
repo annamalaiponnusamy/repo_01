@@ -43,9 +43,9 @@ jobs:
          
         JOB_ID=$(echo $JOBS_RESPONSE | jq -r --arg JOB_NAME "example_job" '.jobs[] | select(.name == $JOB_NAME) | .id')
         echo "Fetching logs for job ID $JOB_ID ..."
-        LOGS_URL="https://api.github.com/repos/annamalaiponnusamy/repo_02/actions/jobs/"
-       
-        LOGS_RESPONSE=$(curl -s -H "Authorization: token  ${{ secrets.ACTIONS_KEY }}" "$LOGS_URL$JOB_ID/logs")
+        LOGS_URL="https://api.github.com/repos/annamalaiponnusamy/repo_02/actions/jobs/37448410242/logs"
+        v = "$LOGS_URL
+        LOGS_RESPONSE=$(curl -s -H "Authorization: token  ${{ secrets.ACTIONS_KEY }}" $LOGS_URL)
         #curl -s -H "Authorization:  Bearer ${{ secrets.ACTIONS_KEY }}" $LOGS_URL -o job_$JOB_ID.log
         echo "Logs for job ID $JOB_ID saved to job_$JOB_ID.log"
 
