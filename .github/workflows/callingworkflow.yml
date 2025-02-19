@@ -39,7 +39,7 @@ jobs:
         #  https://api.github.com/repos/annamalaiponnusamy/repo_02/actions/runs/${{ steps.trigger-step.outputs.workflow-id }}/jobs  > workflow_run.json \
         #| jq '.jobs[].steps[1].name' | tee step_names.txt 
         #| jq  '.jobs[] | select(.name == "Generate output") | .steps[].name' | tee step_names.txt
-        JOB_ID=$(echo $JOBS_RESPONSE | jq -r --arg JOB_NAME "Generate output" '.jobs[] | select(.name == $JOB_NAME) | .id')
+        JOB_ID=$(echo $JOBS_RESPONSE | jq -r --arg JOB_NAME "example_job" '.jobs[] | select(.name == example_job) | .id')
         LOGS_URL="https://api.github.com/repos/annamalaiponnusamy/repo_02/actions/jobs/$JOB_ID/logs"
         echo "Fetching logs for job ID $JOB_ID..."
         LOGS_RESPONSE=$(curl -s -H "Authorization: Bearer ${{ secrets.ACTIONS_KEY }}" $LOGS_URL)
