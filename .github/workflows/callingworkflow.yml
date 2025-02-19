@@ -31,7 +31,7 @@ jobs:
             }
 
      - name: Get Job Logs by Output
-       id: get_job_names
+       id: get_job_names1
        run: |
         #curl -H "Authorization: Bearer ${{ secrets.ACTIONS_KEY }}" \
         JOBS_URL="https://api.github.com/repos/annamalaiponnusamy/repo_02/actions/runs/${{ steps.trigger-step.outputs.workflow-id }}/jobs"
