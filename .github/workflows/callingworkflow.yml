@@ -44,6 +44,8 @@ jobs:
         echo "Fetching logs for job ID $JOB_ID..."
         curl -s -H "Authorization:  Bearer ${{ secrets.ACTIONS_KEY }}" $LOGS_URL -o job_$JOB_ID.log
         echo "Logs for job ID $JOB_ID saved to job_$JOB_ID.log"
+        OUTPUT_VARIABLE=$(jq -r '.jobclusterstatus' job_$JOB_ID.log)
+        echo "Output variable value: $OUTPUT_VARIABLE"
  
      - name: Get Job Logs
        id: get_job_names
