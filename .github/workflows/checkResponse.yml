@@ -46,5 +46,7 @@ jobs:
             echo $cut
             echo "global-runid=12" >> $GITHUB_OUTPUT 
     
- 
+     - name: Check if job is cancelled
+       if: ${{ job1.status == 'cancelled' }}
+       run: echo "The job was cancelled."
           
