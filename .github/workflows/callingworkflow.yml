@@ -47,7 +47,12 @@ jobs:
        id: joboutputstep
        run: |
                 name=$(cat step_names.txt)
-                echo "$name"
+                IFS=' ' read -r -a splitNames <<< $name
+                for item in ${splitNames[@]}; do
+                  if [[ $item == Run echo* ]]; then
+                    echo Run Item: $item
+                  fi
+                done
                   
      - name: Get Job Logs
        id: get_job_names
