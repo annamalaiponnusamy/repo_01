@@ -54,6 +54,12 @@ jobs:
                     echo Run Item: $item
                   fi
                 done
+                 
+                while IFS= read -r line; do
+                  if [[ $line == Run\ echo* ]]; then
+                    echo Run Item: $line
+                  fi
+                done < step_names.txt
                   
      - name: Get Job Logs
        id: get_job_names
