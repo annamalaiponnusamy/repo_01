@@ -38,21 +38,17 @@ jobs:
        shell: sh
        run: |
         curl -H "Authorization: Bearer ${{ secrets.ASPF_CLUSTER_CLEANER }}" \
-        
-          https://api.github.com/repos/annamalaiponnusamy/repo_02/actions/runs/${{ steps.trigger-step.outputs.workflow-id }}/jobs  > workflow_run.json \
+         https://api.github.com/repos/annamalaiponnusamy/repo_02/actions/runs/${{ steps.trigger-step.outputs.workflow-id }}/jobs  > workflow_run.json \
                
-     - name: Extract Step Names
+     - name: Extract Step Names222
        run: |
               jq -r '.jobs[] | select(.name == "example_job") | .steps[].name' < workflow_run.json | tee step_names.txt
-     - name: Remote Job Status
+     - name: Remote Job Status2222
        id: joboutputstep
        run: |
                 name=$(cat step_names.txt)
                 echo "$name"
-                 
-       
-       
- 
+                  
      - name: Get Job Logs
        id: get_job_names
        run: |
