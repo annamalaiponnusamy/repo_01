@@ -59,7 +59,7 @@ jobs:
                   if [[ $line == Run\ echo* ]]; then
                     echo Run Item: $line
                     IFS=$'\n' read -r -a splitNames <<< "$line"
-                    echo Run Item: $splitNames[2]
+                    echo Run Item: ${splitNames[2]}
                   fi
                 done < step_names.txt
                   
