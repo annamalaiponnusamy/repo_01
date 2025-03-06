@@ -34,6 +34,14 @@ jobs:
         echo "response-output1=${splitStepName[0]}" >> $GITHUB_OUTPUT
         echo "response-output2=${splitStepName[1]}" >> $GITHUB_OUTPUT
         echo "response-output3=${splitStepName[2]}" >> $GITHUB_OUTPUT
+     - name: Read and process content from applicationoutput.txt
+       shell: pwsh
+       run: |
+        $name = Get-Content -Path applicationoutput.txt
+        $splitStepName = $name -split ','
+        echo "Gatling Run ID: $($splitStepName[0])"
+        echo "Start Time: $($splitStepName[1])"
+        echo "End Time: $($splitStepName[2])"
      - name: Check for dotnet installation
        run: |
         dotnet --version
