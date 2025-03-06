@@ -8,6 +8,11 @@ jobs:
    runs-on: windows-latest
    
    steps: 
+     - name: Write content to applicationoutput.txt
+       shell: pwsh
+       run: |
+        $content = "123,drf,3434"
+        Set-Content -Path applicationoutput.txt -Value $content
      - name: Trigger the Workflow in auto gatling execution Repository2       
        run: |
         $STATUS = 'pass'     
@@ -21,7 +26,7 @@ jobs:
         {
           echo "fail"
         }    
-        $name = "123,drf,3434"
+        $name = Get-Content -Path applicationoutput.txt
         $splitStepName = $name -split ','                
         echo "Gatling Run ID: ${splitStepName[0]}"
         echo "Start Time: ${splitStepName[1]}"
