@@ -21,7 +21,7 @@ jobs:
         {
           echo "fail"
         }    
-        $name = '123,drf,3434'
+        $name = "123,drf,3434"
         $splitStepName = $name -split ','                
         echo "Gatling Run ID: ${splitStepName[0]}"
         echo "Start Time: ${splitStepName[1]}"
