@@ -60,8 +60,8 @@ jobs:
                   if [[ $line == Run\ echo* ]]; then
                     echo Run Item: $line
                     IFS=' ' read -r -a splitNames <<< "$line"
-                    echo Split Step Name: ${splitDates[2]}
-                    IFS=',' read -r -a splitDates <<< "${splitDates[2]}"
+                    echo Split Step Name: ${splitNames[2]}
+                    IFS=',' read -r -a splitDates <<< "${splitNames[2]}"
                     echo "Start Date: ${splitDates[0]}"  
                     echo "End Date: ${splitDates[1]}" 
                     echo "response-output1=${splitDates[0]}" >> $GITHUB_OUTPUT
