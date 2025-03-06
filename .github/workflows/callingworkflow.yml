@@ -47,9 +47,9 @@ jobs:
        id: joboutputstep
        run: |
                 name=$(cat step_names.txt)
-                IFS=',' read -r -a splitNames <<< $name
-                for item in ${splitNames[@]}; do
-                  if [[ $item == Run echo* ]]; then
+                IFS=',' read -r -a splitNames <<< "$name"
+                for item in "${splitNames[@]}"; do
+                  if [[ $item == Run\ echo* ]]; then
                     echo Run Item: $item
                   fi
                 done
