@@ -15,7 +15,7 @@ jobs:
         if ($STATUS -match "pass") 
         {
           echo "pass"
-          exit 1
+          
         } 
         else 
         {
