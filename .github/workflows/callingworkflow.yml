@@ -55,13 +55,19 @@ jobs:
                   fi
                 done
                  
+                name=$(cat step_names.txt)
                 while IFS= read -r line; do
                   if [[ $line == Run\ echo* ]]; then
                     echo Run Item: $line
                     IFS=' ' read -r -a splitNames <<< "$line"
-                    echo Run Item: ${splitNames[2]}
+                    echo Split Step Name: ${splitDates[2]}
+                    IFS=',' read -r -a splitDates <<< "${splitDates[2]}"
+                    echo "Start Date: ${splitDates[0]}"  
+                    echo "End Date: ${splitDates[1]}" 
+                    echo "response-output1=${splitDates[0]}" >> $GITHUB_OUTPUT
+                    echo "response-output2=${splitDates[1]}" >> $GITHUB_OUTPUT
                   fi
-                done < step_names.txt
+                 done < step_names.txt
                   
      - name: Get Job Logs
        id: get_job_names
