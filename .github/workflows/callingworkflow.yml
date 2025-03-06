@@ -37,46 +37,21 @@ jobs:
        id: get_job_names1
        shell: sh
        run: |
-        #curl -H "Authorization: Bearer ${{ secrets.ASPF_CLUSTER_CLEANER }}" \
-        JOBS_URL="https://api.github.com/repos/annamalaiponnusamy/repo_02/actions/runs/${{ steps.trigger-step.outputs.workflow-id }}/jobs"
-        JOBS_RESPONSE=$(curl -s -H "Authorization: token ${{ secrets.ASPF_CLUSTER_CLEANER }}" $JOBS_URL)
-        #  https://api.github.com/repos/annamalaiponnusamy/repo_02/actions/runs/${{ steps.trigger-step.outputs.workflow-id }}/jobs  > workflow_run.json \
-        #| jq '.jobs[].steps[1].name' | tee step_names.txt 
-        #| jq  '.jobs[] | select(.name == "Generate output") | .steps[].name' | tee step_names.txt
-         
-        JOB_ID=$(echo $JOBS_RESPONSE | jq -r --arg JOB_NAME "example_job" '.jobs[] | select(.name == $JOB_NAME) | .id')
-        echo "Fetching logs for job ID $JOB_ID ..."
-        LOGS_URL="https://api.github.com/repos/annamalaiponnusamy/repo_02/actions/jobs/37448410242/logs"
+        curl -H "Authorization: Bearer ${{ secrets.ASPF_CLUSTER_CLEANER }}" \
         
-        LOGS_RESPONSE=$(curl -s -H "Authorization: token  ${{ secrets.ASPF_CLUSTER_CLEANER }}" $LOGS_URL)
-        #curl -s -H "Authorization:  Bearer ${{ secrets.ACTIONS_KEY }}" $LOGS_URL -o job_$JOB_ID.log
-        echo "Logs for job ID $JOB_ID saved to job_$JOB_ID.log"
-
-        echo "$LOGS_RESPONSE" > job_$JOB_ID.log
-
-        echo "$LOGS_RESPONSE" | jq '.steps[] | select(.conclusion == "success") | .outputs // empty'
-
-
-        # Extract step output variable value from logs
-        STEP_OUTPUT=$(echo "$LOGS_RESPONSE" | jq -r --arg STEP_NAME "GetRunIDFromS3Object" '.steps[] | select(.name == $STEP_NAME) | .output')
-
-        if [ -n "$STEP_OUTPUT" ]; then
-          echo "Output for step '$STEP_NAME': $STEP_OUTPUT"
-        else
-          echo "No output found for step '$STEP_NAME' in job '$JOB_NAME'."
-        fi
-
-
-        # *** DEBUGGING - Verify file existence and content ***
-        echo "--- Checking if job_$JOB_ID.log exists ---"
-        ls -l job_$JOB_ID.log || echo "job_$JOB_ID.log does NOT exist" # Check if file exists, if not, say so
-        echo "--- Content of job_$JOB_ID.log ---"
-        cat job_$JOB_ID.log || echo "job_$JOB_ID.log is EMPTY or cannot be read" # Print file content, if empty or not readable, say so
-        echo "--- End of job_$JOB_ID.log content ---"
-        # *** END DEBUGGING ***
-
-        OUTPUT_VARIABLE=$(jq -r '.jobclusterstatus' job_$JOB_ID.log)
-        echo "Output variable value: $OUTPUT_VARIABLE"
+          https://api.github.com/repos/annamalaiponnusamy/repo_02/actions/runs/${{ steps.trigger-step.outputs.workflow-id }}/jobs  > workflow_run.json \
+               
+     - name: Extract Step Names
+       run: |
+              jq -r '.jobs[] | select(.name == "example_job") | .steps[].name' < workflow_run.json | tee step_names.txt
+     - name: Remote Job Status
+       id: joboutputstep
+       run: |
+                name=$(cat step_names.txt)
+                echo "$name"
+                 
+       
+       
  
      - name: Get Job Logs
        id: get_job_names
